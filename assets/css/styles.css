@@ -26,6 +26,8 @@
   --nobl-line: #5f8a86;
   --flo-beige: #eee6da;
   --paper: #faf7f3;
+  --paper-line: #e3dcd2;
+  --studio: #f6f5fa;       /* the backdrop of NOBL's studio photos */
   --font: "Montserrat", Arial, sans-serif;
   --u: 1px;
 }
@@ -97,72 +99,120 @@ ul { padding: 0; list-style: none; }
 .site-footer a:hover { opacity: .75; }
 
 /* ---- home -------------------------------------------------------------- */
-/* The NOBL-led top of the home page (hero, proof strip, NOBL feature, flo card). Unlike the replica
-   sections, these are fluid: --edge lines content up with the header logo at every width. */
-.page-home { --edge: max(20px, calc(50% - 676px)); }
-/* width/height attributes are only for layout reservation; CSS sets the real size */
-.nh-rail img, .nh-nobl img, .nh-flo img { height: auto; }
-.nh-kicker { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+/* The home page is the NOBL-led redesign, not the Wix replica: sizes are fluid, and --edge lines content
+   up with the header logo at every width. NOBL gets three sections (range, features, why), flo one. */
+.page-home { --edge: max(20px, calc(50% - 676px)); --h2: clamp(30px, 2.8vw, 42px); }
+.page-home :is(h2, p, span) { text-wrap: pretty; }
+.page-home main img { height: auto; }   /* width/height attributes only reserve space; CSS sets the size */
+.nh-kicker { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 
-.nh-hero { position: relative; height: clamp(640px, 44vw + 120px, 900px); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
-.nh-hero__img img { position: absolute; right: 0; bottom: 0; width: 100%; height: auto; max-width: none;
+.nh-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  height: 50px; padding: 0 30px; border-radius: 50px;
+  font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease;
+}
+.nh-pill--light { background: var(--white); color: var(--nobl); }
+.nh-pill--light:hover { background: var(--flo-beige); }
+.nh-pill--teal { background: var(--nobl); color: var(--white); }
+.nh-pill--teal:hover { background: #0a6b64; }
+.nh-pill--dark { background: var(--ink); color: var(--white); }
+.nh-pill--dark:hover { background: #4a4848; }
+.nh-link { display: inline-flex; gap: 10px; padding-bottom: 3px; border-bottom: 1px solid currentColor; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.nh-link:hover { opacity: .7; }
+.nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; margin-top: 40px; }
+
+/* hero: the luggage photo is anchored bottom-right and fades into the backdrop at the top */
+.nh-hero { position: relative; height: clamp(660px, 44vw + 140px, 920px); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
+.nh-hero__img img { position: absolute; right: 0; bottom: 0; width: 100%; max-width: none;
   -webkit-mask-image: linear-gradient(transparent, #000 22%); mask-image: linear-gradient(transparent, #000 22%); }
-.nh-hero__copy { position: relative; z-index: 1; padding: clamp(72px, 8vw, 128px) 0 0 var(--edge); }
+.nh-hero__copy { position: relative; z-index: 1; padding: clamp(72px, 7vw, 120px) 0 0 var(--edge); }
 .nh-hero h1 { margin-top: 30px; font-size: clamp(64px, 7.4vw, 136px); font-weight: 400; letter-spacing: .06em; line-height: .9; text-transform: uppercase; }
-.nh-hero__sub { max-width: 340px; margin-top: 34px; font-size: 21px; line-height: 1.3; }
+.nh-hero__sub { max-width: 340px; margin-top: 30px; font-size: 21px; line-height: 1.3; }
+.nh-hero .nh-pill { margin-top: 34px; }
 
-.nh-rail { position: absolute; z-index: 1; left: var(--edge); bottom: 40px; display: grid; grid-template-columns: 3fr 2fr; width: min(600px, 46%); height: 104px; border: 1px solid var(--nobl-line); }
-.nh-rail a { display: flex; align-items: center; gap: 20px; padding: 0 24px; font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
+/* NOBL takes two thirds of the rail; it stays narrow enough to clear the luggage */
+.nh-rail { position: absolute; z-index: 1; left: var(--edge); bottom: 40px; display: grid; grid-template-columns: 2fr 1fr; width: min(520px, 38%); height: 104px; border: 1px solid var(--nobl-line); }
+.nh-rail a { display: flex; align-items: center; gap: 20px; padding: 0 24px; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
 .nh-rail a:hover { filter: brightness(1.12); }
 .nh-rail__nobl { background: var(--nobl); border-right: 1px solid var(--nobl-line); }
 .nh-rail__nobl img { width: 120px; }
-.nh-rail__nobl small { display: block; margin-top: 6px; font-size: 9px; letter-spacing: .14em; opacity: .7; }
-.nh-rail__flo { background: var(--flo-beige); color: var(--ink); }
-.nh-rail__flo img { width: 46px; }
+.nh-rail__nobl small { display: block; margin-top: 6px; font-size: 10px; letter-spacing: .14em; white-space: nowrap; opacity: .75; }
+.nh-rail__flo { justify-content: center; background: var(--flo-beige); color: var(--ink); }
+.nh-rail__flo img { width: 44px; }
+.nh-rail__flo span { display: none; }
+@media (max-width: 1240px) { .nh-rail__nobl small { display: none; } }
 
-.nh-proof { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 40px; padding: 26px var(--edge); background: var(--paper); font-size: 13px; letter-spacing: .04em; }
-.nh-proof__brand { font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--nobl); }
-.nh-proof ul { display: flex; flex-wrap: wrap; gap: 12px 40px; }
-.nh-proof li { position: relative; }
-.nh-proof li + li::before { content: ""; position: absolute; left: -21px; top: 50%; width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+/* trust strip: NOBL's own proof points, with the press as type rather than third-party logos */
+.nh-trust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; padding: 30px var(--edge); background: var(--paper); border-bottom: 1px solid var(--paper-line); }
+.nh-trust__facts { display: flex; flex-wrap: wrap; gap: 16px 36px; }
+.nh-trust__facts li { display: flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--nobl); }
+.nh-trust svg { flex: none; width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nh-trust svg text { fill: currentColor; stroke: none; font: 700 8px var(--font); }
+.nh-trust__press { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 22px; font-size: 17px; }
+.nh-trust__press span { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #5e5b57; }
+.nh-trust__press b { font-family: Georgia, "Times New Roman", serif; letter-spacing: .02em; }
 
-.nh-nobl { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(48px, 6vw, 96px); padding: 120px var(--edge) 130px; background: var(--nobl); color: var(--white); }
-.nh-nobl__text { max-width: 520px; }
-.nh-nobl__logo { width: 170px; margin-top: 30px; }
-.nh-nobl h2 { margin-top: 40px; font-size: clamp(36px, 3.6vw, 52px); font-weight: 400; line-height: 1.1; }
-.nh-nobl__lead { margin-top: 24px; font-size: 17px; line-height: 1.6; opacity: .9; }
-.nh-nobl__line { margin-top: 36px; border-top: 1px solid var(--nobl-line); }
-.nh-nobl__line li { padding: 15px 0; border-bottom: 1px solid var(--nobl-line); font-size: 14px; letter-spacing: .06em; }
-.nh-nobl__media { position: relative; padding: 0 0 12% 18%; }
-.nh-nobl__main { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 42%; }
-.nh-nobl__inset { position: absolute; left: 0; bottom: 0; width: 42%; aspect-ratio: 4 / 5; object-fit: cover; border: 10px solid var(--nobl); }
+/* the NOBL range: category cut-outs, as on nobltravel.com */
+.nh-range { display: flex; flex-direction: column; align-items: center; padding: 110px var(--edge) 120px; background: var(--nobl); color: var(--white); text-align: center; }
+.nh-range h2 { display: flex; align-items: center; gap: 22px; margin-top: 28px; font-size: 32px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; }
+.nh-range h2 img { width: 190px; }
+.nh-range__lead { max-width: 660px; margin-top: 28px; font-size: 18px; line-height: 1.6; opacity: .9; }
+.nh-range__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 44px); width: 100%; max-width: 1352px; margin: 60px 0 64px; }
+.nh-range__grid a { display: flex; flex-direction: column; align-items: center; gap: 22px; font-size: 16px; letter-spacing: .06em; }
+.nh-range__grid img { width: 100%; max-width: 300px; border-radius: 50%; transition: transform .3s ease; }
+.nh-range__grid i { display: inline-block; font-style: normal; transition: transform .2s ease; }
+.nh-range__grid a:hover img { transform: scale(1.04); }
+.nh-range__grid a:hover i { transform: translateX(4px); }
 
-.nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; margin-top: 40px; }
-.nh-btn { display: inline-flex; align-items: center; gap: 12px; height: 48px; padding: 0 28px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; transition: background-color .2s ease, color .2s ease; }
-.nh-btn--light { background: var(--white); color: var(--nobl); }
-.nh-btn--light:hover { background: var(--flo-beige); }
-.nh-link { display: inline-flex; gap: 10px; padding-bottom: 3px; border-bottom: 1px solid currentColor; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.nh-link:hover { opacity: .7; }
+/* features: two photos and a numbered list */
+/* the section takes the photos' own studio white, so they sit in it without visible boxes */
+.nh-features { display: grid; grid-template-columns: 1.35fr 1fr; align-items: center; gap: clamp(40px, 5vw, 80px); padding: 110px var(--edge); background: var(--studio); }
+.nh-features__media { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.nh-features__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.nh-features .nh-kicker { color: var(--nobl); }
+.nh-features h2 { margin-top: 22px; font-size: var(--h2); font-weight: 400; line-height: 1.15; color: var(--nobl); }
+.nh-features__list { margin: 36px 0 40px; padding: 0; list-style: none; counter-reset: feature; border-top: 1px solid var(--paper-line); }
+.nh-features__list li { counter-increment: feature; display: grid; grid-template-columns: 44px 1fr; column-gap: 20px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--paper-line); font-size: 15px; line-height: 1.4; }
+.nh-features__list li::before { content: counter(feature); grid-row: span 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--nobl); border-radius: 50%; color: var(--nobl); }
+.nh-features__list b { font-size: 17px; }
 
-.nh-flo { display: grid; grid-template-columns: minmax(0, 460px) minmax(0, 1fr); align-items: center; gap: clamp(40px, 5vw, 80px); padding: 72px var(--edge); background: var(--flo-beige); }
-.nh-flo__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 49% 40%; }
-.nh-flo h2 img { width: 92px; margin-top: 24px; }
-.nh-flo__text p:not(.nh-kicker) { max-width: 420px; margin-top: 22px; font-size: 22px; line-height: 1.4; }
-.nh-flo .nh-link { margin-top: 28px; }
+/* why NOBL: photo and story, half and half */
+.nh-why { display: grid; grid-template-columns: 1fr 1fr; min-height: 720px; background: var(--nobl); color: var(--white); }
+.nh-why .nh-why__img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.nh-why__text { align-self: center; max-width: 640px; padding: 90px clamp(32px, 6vw, 96px); }
+.nh-why h2 { margin-top: 22px; font-size: var(--h2); font-weight: 400; line-height: 1.15; }
+.nh-why__text > p:not(.nh-kicker) { margin-top: 24px; font-size: 17px; line-height: 1.65; opacity: .9; }
+.nh-why__tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.nh-why__tags a { display: block; padding: 8px 16px; border: 1px solid var(--nobl-line); border-radius: 50px; font-size: 13px; letter-spacing: .04em; transition: background-color .2s ease; }
+.nh-why__tags a:hover { background: rgba(255, 255, 255, .1); }
 
-.home-mission { display: flex; flex-direction: column; align-items: center; height: 445px; padding-top: 91px; background: var(--band); text-align: center; }
-.home-mission__lead { max-width: 900px; padding: 0 24px; font-size: 35px; }
-.home-mission .btn { margin-top: 51px; }
-.home-mission__tagline { margin-top: 56px; font-size: 30px; font-style: italic; line-height: 42px; }
+/* flo: one compact section in flo's own beige-card style. Copy on the left, smaller cards on the right. */
+.nh-flo { display: grid; grid-template-columns: minmax(260px, 1fr) 2.3fr; grid-template-rows: auto 1fr; align-items: start; column-gap: clamp(40px, 5vw, 80px); padding: 90px var(--edge); background: var(--white); }
+.nh-flo__head { grid-column: 1; }
+.nh-flo h2 img { width: 96px; margin-top: 18px; }
+.nh-flo__lead { max-width: 360px; margin-top: 28px; font-size: clamp(20px, 1.6vw, 23px); line-height: 1.35; }
+.nh-flo__cards { grid-column: 2; grid-row: 1 / 3; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.nh-flo__cards li { display: flex; flex-direction: column; }
+.nh-flo__cards img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 20px; }
+.nh-flo__cards b { margin-top: 16px; font-size: 16px; }
+.nh-flo__cards span { margin-top: 6px; font-size: 14px; line-height: 1.5; color: #555; }
+.nh-flo__foot { grid-column: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-top: 40px; }
+.nh-flo__foot p { max-width: 360px; font-size: 15px; line-height: 1.6; }
 
-/* text centres on the left half of the window, the 932px photo on the right half */
-.home-careers { position: relative; height: 971px; overflow: hidden; }
-.home-careers__text { position: relative; z-index: 1; width: 350px; margin-left: max(40px, calc(25% - 222px)); padding-top: 205px; }
-.home-careers__eyebrow { font-size: 21px; font-weight: 700; font-style: italic; }
-.home-careers__lead { max-width: 350px; margin-top: 47px; font-size: 40px; line-height: 44px; color: var(--ink-soft); }
-.home-careers .btn { margin-top: 71px; }
-.home-careers__img { position: absolute; top: 0; left: max(440px, calc(75% - 455px)); width: 932px; height: 100%; }
-.home-careers__img img { width: 100%; height: 100%; object-fit: cover; }
+/* mission and careers, restyled to match */
+.nh-mission { display: flex; flex-direction: column; align-items: center; padding: 110px var(--edge); background: var(--ink); color: var(--white); text-align: center; }
+.nh-mission__lead { max-width: 900px; margin-top: 28px; font-size: var(--h2); line-height: 1.3; }
+.nh-mission__tagline { margin-top: 22px; font-size: 20px; font-style: italic; opacity: .75; }
+.nh-mission .nh-pill { margin-top: 40px; }
+
+.nh-careers { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; background: var(--paper); }
+/* the column is half the page, so 100% - 676px here equals the page's 50% - 676px edge */
+.nh-careers__text { align-self: center; max-width: 720px; padding: 80px clamp(32px, 6vw, 96px) 80px max(20px, calc(100% - 676px)); }
+.nh-careers .nh-kicker { color: var(--nobl); }
+.nh-careers__lead { margin-top: 24px; font-size: calc(var(--h2) * .8); line-height: 1.3; }
+.nh-careers .nh-pill { margin-top: 36px; }
+.nh-careers .nh-careers__img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ---- about ------------------------------------------------------------- */
 .about-hero { height: 784px; background: var(--grey-100); overflow: hidden; }
@@ -280,48 +330,51 @@ ul { padding: 0; list-style: none; }
   .site-footer__linkedin img { width: calc(39 * var(--u)); height: calc(39 * var(--u)); }
   .site-footer__copy { display: none; }
 
-  /* home: careers text and photo come before the mission band */
-  .page-home main { display: flex; flex-direction: column; }
-  /* NOBL-led sections: text, then the luggage photo, then the brand rail */
+  /* home (fluid, not --u): hero text, then the luggage photo, then the brand rail */
   .nh-hero { display: flex; flex-direction: column; height: auto; }
-  .nh-hero__img { order: 1; margin-top: 28px; }
+  .nh-hero__img { order: 1; margin-top: 20px; }
   .nh-hero__img img { position: static; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 78%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 78%, transparent); }
   .nh-hero__copy { padding: 48px 20px 0; }
   .nh-hero h1 { margin-top: 22px; font-size: clamp(44px, 14.5vw, 120px); }
-  .nh-hero__sub { margin-top: 20px; font-size: 17px; }
+  .nh-hero__sub { margin-top: 18px; font-size: 17px; }
+  .nh-hero .nh-pill { margin-top: 26px; height: 46px; }
   .nh-rail { position: relative; order: 2; left: auto; bottom: auto; width: auto; height: 76px; margin: -10px 16px 20px; }
-  .nh-rail a { gap: 12px; padding: 0 14px; font-size: 9px; letter-spacing: .16em; }
+  .nh-rail a { gap: 12px; padding: 0 14px; font-size: 10px; letter-spacing: .16em; }
   .nh-rail__nobl img { width: 80px; }
-  .nh-rail__nobl small { font-size: 7px; }
+  .nh-rail__nobl small { display: none; }
   .nh-rail__flo img { width: 34px; }
 
-  .nh-proof { flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px 20px; }
-  .nh-proof ul { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
-  .nh-proof li + li::before { display: none; }
+  .nh-trust { flex-direction: column; align-items: flex-start; gap: 22px; padding: 28px 20px; }
+  .nh-trust__facts { display: grid; gap: 14px; }
+  .nh-trust__facts li { font-size: 12px; }
+  .nh-trust__press { gap: 6px 18px; font-size: 16px; }
+  .nh-trust__press span { width: 100%; }
 
-  .nh-nobl { grid-template-columns: 1fr; gap: 48px; padding: 64px 20px 72px; }
-  .nh-nobl__logo { width: 130px; margin-top: 24px; }
-  .nh-nobl h2 { margin-top: 28px; }
-  .nh-nobl__lead { font-size: 16px; }
-  .nh-nobl__media { width: 100%; max-width: 520px; padding: 0 0 14% 14%; }
+  .nh-range { padding: 72px 20px 80px; }
+  .nh-range h2 { gap: 14px; font-size: 22px; }
+  .nh-range h2 img { width: 130px; }
+  .nh-range__lead { font-size: 16px; }
+  .nh-range__grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; margin: 44px 0 48px; }
+  .nh-range__grid a { gap: 14px; font-size: 14px; }
 
-  .nh-flo { grid-template-columns: 1fr; gap: 28px; padding: 0 0 48px; }
-  .nh-flo__img { max-height: 400px; }
-  .nh-flo__text { padding: 0 20px; }
-  .nh-flo__text p:not(.nh-kicker) { font-size: 19px; }
+  .nh-features { grid-template-columns: 1fr; gap: 40px; padding: 72px 20px; }
+  .nh-features__list { margin-bottom: 32px; }
 
-  .home-mission { order: 1; height: calc(314 * var(--u)); padding-top: calc(57 * var(--u)); }
-  .home-mission__tagline { order: -2; max-width: calc(215 * var(--u)); margin: 0; font-size: calc(14 * var(--u)); line-height: calc(19.6 * var(--u)); }
-  .home-mission .btn { order: -1; margin-top: calc(34 * var(--u)); }
-  .home-mission__lead { max-width: calc(220 * var(--u)); margin-top: calc(29 * var(--u)); padding: 0; font-size: calc(14 * var(--u)); }
+  .nh-why { grid-template-columns: 1fr; min-height: 0; }
+  .nh-why .nh-why__img { height: auto; aspect-ratio: 4 / 5; max-height: 560px; }
+  .nh-why__text { max-width: none; padding: 56px 20px 64px; }
 
-  .home-careers { display: block; height: auto; }
-  .home-careers__text { display: flex; flex-direction: column; align-items: center; width: auto; height: calc(262 * var(--u)); margin: 0; padding: calc(46 * var(--u)) 0 0; text-align: center; }
-  .home-careers__eyebrow { font-size: calc(12 * var(--u)); }
-  .home-careers__lead { max-width: calc(180 * var(--u)); margin-top: calc(17 * var(--u)); font-size: calc(14 * var(--u)); line-height: calc(15.4 * var(--u)); }
-  .home-careers .btn { margin-top: calc(26 * var(--u)); }
-  .home-careers__img { position: static; width: auto; height: calc(471 * var(--u)); }
-  .home-careers__img img { width: 100%; object-position: 55% 50%; }
+  /* flo's three cards become a swipe row, as on pilatesflo.com */
+  .nh-flo { display: block; padding: 72px 20px; }
+  .nh-flo__lead { margin-top: 20px; }
+  .nh-flo__foot { margin-top: 32px; }
+  .nh-flo__cards { grid-template-columns: repeat(3, min(62%, 300px)); gap: 14px; margin: 36px -20px 0; padding: 0 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .nh-flo__cards li { scroll-snap-align: start; scroll-margin-left: 20px; }
+
+  .nh-mission { padding: 72px 20px; }
+  .nh-careers { grid-template-columns: 1fr; min-height: 0; }
+  .nh-careers__text { padding: 64px 20px; }
+  .nh-careers .nh-careers__img { height: auto; aspect-ratio: 4 / 3; }
 
   /* about */
   .about-hero { aspect-ratio: auto; height: calc(200 * var(--u)); }
