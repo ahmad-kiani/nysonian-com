@@ -26,37 +26,67 @@
   </header>
 
   <main id="main">
-    <section class="home-hero">
-      <div class="home-hero__img"><img class="cover" src="assets/img/home-hero-nobl.webp" width="1440" height="960" alt="NOBL aluminium carry-on suitcases in several colours"></div>
-      <div class="home-hero__img"><img class="cover" src="assets/img/home-hero-flo.webp" width="1332" height="1180" alt="Two women in flo Pilates activewear"></div>
-      <h1>NYSONIAN</h1>
+    <section class="nh-hero" aria-labelledby="hero-title">
+      <picture class="nh-hero__img">
+        <source media="(max-width: 999px)" srcset="assets/img/home-nobl-hero-mobile.webp" width="1100" height="717">
+        <img src="assets/img/home-nobl-hero.webp" width="2400" height="970" fetchpriority="high" alt="The NOBL luggage collection: carry-ons, check-ins and a weekender bag in blue, navy, yellow and silver">
+      </picture>
+      <div class="nh-hero__copy">
+        <p class="nh-kicker">Independent brands. One operating company.</p>
+        <h1 id="hero-title">Nysonian</h1>
+        <p class="nh-hero__sub">We build consumer brands designed to move.</p>
+      </div>
+      <nav class="nh-rail" aria-label="Our brands">
+        <a class="nh-rail__nobl" href="#nobl">
+          <img src="assets/img/logo-nobl-tag.webp" width="600" height="264" alt="NOBL">
+          <span>Travel<small>Our flagship brand</small></span>
+        </a>
+        <a class="nh-rail__flo" href="#flo">
+          <img src="assets/img/logo-flo-black.webp" width="400" height="378" alt="flo Pilates">
+          <span>Movement</span>
+        </a>
+      </nav>
     </section>
 
-    <section class="home-brands" aria-labelledby="brands-title">
-      <h2 id="brands-title">Our Brands</h2>
-      <div class="home-brands__grid">
-        <article class="brand-card">
-          <div class="brand-card__media" style="--mh:317">
-            <img class="cover" style="--img-h:416px;--mimg:373" src="assets/img/home-brand-nobl.webp" width="800" height="1000" loading="lazy" alt="Woman sitting with a white NOBL carry-on">
-            <a class="brand-card__logo brand-card__logo--nobl" href="https://nobltravel.com/"><img src="assets/img/logo-nobl.webp" width="110" height="49" alt="NOBL Travel"></a>
-          </div>
-          <div class="brand-card__body">
-            <h3>Nobl Travel</h3>
-            <p class="brand-card__tag">Purposefully crafted travel</p>
-            <p class="brand-card__desc" style="--dw:215px">Timeless design and purposeful innovation for modern travel.</p>
-          </div>
-        </article>
-        <article class="brand-card">
-          <div class="brand-card__media" style="--mh:274">
-            <img class="cover" src="assets/img/home-brand-flo.webp" width="800" height="800" loading="lazy" alt="Woman training on a flo Pilates reformer">
-            <a class="brand-card__logo brand-card__logo--flo" href="https://pilatesflo.com/"><img src="assets/img/logo-flo-white.webp" width="330" height="330" alt="flo Pilates"></a>
-          </div>
-          <div class="brand-card__body">
-            <h3>Flo Pilates</h3>
-            <p class="brand-card__tag">Designed for strength, balance, and flow</p>
-            <p class="brand-card__desc">Modern Pilates, thoughtfully designed for everyday living.</p>
-          </div>
-        </article>
+    <section class="nh-proof" aria-label="NOBL Travel at a glance">
+      <p class="nh-proof__brand">NOBL Travel</p>
+      <ul>
+        <li>Lifetime warranty</li>
+        <li>100-day trial</li>
+        <li>100,000+ customers</li>
+        <li>Featured in Vogue, Forbes, GQ and CNN</li>
+      </ul>
+    </section>
+
+    <section class="nh-nobl" id="nobl" aria-labelledby="nobl-title">
+      <div class="nh-nobl__text">
+        <p class="nh-kicker">Our flagship brand</p>
+        <img class="nh-nobl__logo" src="assets/img/logo-nobl-tag.webp" width="600" height="264" loading="lazy" alt="NOBL Travel">
+        <h2 id="nobl-title">Purposefully crafted travel.</h2>
+        <p class="nh-nobl__lead">Timeless design and purposeful innovation for modern travel. Luggage, bags and accessories engineered with premium materials and thoughtful details.</p>
+        <ul class="nh-nobl__line" aria-label="NOBL essentials">
+          <li>Carry-On: All-in-One</li>
+          <li>Check-In: All-in-One 28”</li>
+          <li>Weekender Bag</li>
+        </ul>
+        <div class="nh-actions">
+          <a class="nh-btn nh-btn--light" href="https://nobltravel.com/">Shop NOBL Travel <span aria-hidden="true">↗</span></a>
+          <a class="nh-link" href="brands.html">More about our brands <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="nh-nobl__media">
+        <img class="nh-nobl__main" src="assets/img/home-nobl-traveler.webp" width="1100" height="1375" loading="lazy" alt="A traveller in sunglasses standing beside a black NOBL carry-on">
+        <img class="nh-nobl__inset" src="assets/img/home-brand-nobl.webp" width="800" height="1000" loading="lazy" alt="A woman sitting with a white NOBL carry-on">
+      </div>
+    </section>
+
+    <section class="nh-flo" id="flo" aria-labelledby="flo-title">
+      <img class="nh-flo__img" src="assets/img/home-flo-movement.webp" width="1200" height="901" loading="lazy" alt="A woman in black activewear in a wide Pilates stance">
+      <div class="nh-flo__text">
+        <p class="nh-kicker">Also from Nysonian</p>
+        <h2 id="flo-title"><img src="assets/img/logo-flo-black.webp" width="400" height="378" loading="lazy" alt="flo Pilates"></h2>
+        <p>Modern Pilates, thoughtfully designed for everyday living.</p>
+        <a class="nh-link" href="https://pilatesflo.com/">Visit flo Pilates <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
