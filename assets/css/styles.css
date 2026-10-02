@@ -133,7 +133,8 @@ ul { padding: 0; list-style: none; }
    right of the luggage. The text is centred in the space above the brand rail. */
 .nh-hero {
   --copy-w: clamp(300px, 36vw - 40px, 500px);
-  --rail-h: 88px;
+  --rail-h: clamp(56px, 4.6vw, 88px);             /* 58px on a 1266px laptop, 88px at 1920 */
+  --rail-w: min(var(--copy-w), clamp(280px, 26vw, 500px));
   --rail-bottom: clamp(28px, 2.6vw, 56px);
   position: relative; display: flex; flex-direction: column; justify-content: center;
   width: 100%; aspect-ratio: 2474 / 1000; min-height: 540px;   /* a set width keeps min-height from widening the box */ padding: 40px 0 calc(var(--rail-h) + var(--rail-bottom) + 32px);
@@ -144,13 +145,13 @@ ul { padding: 0; list-style: none; }
 .nh-hero__copy { position: relative; z-index: 1; max-width: var(--copy-w); padding-left: var(--frame); box-sizing: content-box; }
 
 /* brand rail: the two brands as equal tiles in the bottom-left, under the text column */
-.nh-rail { position: absolute; z-index: 1; left: var(--frame); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--copy-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
+.nh-rail { position: absolute; z-index: 1; left: var(--frame); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--rail-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
 .nh-rail a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 22px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
 .nh-rail a:hover { filter: brightness(1.1); }
 .nh-rail__nobl { background: #0b3d39; color: var(--white); border-right: 1px solid rgba(255, 255, 255, .18); }
-.nh-rail__nobl img { width: 96px; }
+.nh-rail__nobl img { width: clamp(64px, 5vw, 96px); }
 .nh-rail__flo { background: var(--flo-beige); color: var(--ink); }
-.nh-rail__flo img { width: 40px; }
+.nh-rail__flo img { width: clamp(28px, 2.1vw, 40px); }
 /* narrow desktops: the tiles are too small for logo plus label, so show the logos only */
 @media (min-width: 1000px) and (max-width: 1365px) { .nh-rail a { justify-content: center; } .nh-rail span { display: none; } }
 .nh-hero__copy > .nh-kicker { margin: 0; }
