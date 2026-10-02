@@ -224,7 +224,14 @@ ul { padding: 0; list-style: none; }
 .about-cta__col .btn { margin-top: 43px; }
 
 /* ---- brands ------------------------------------------------------------ */
+/* intro above the brand blocks, styled like the home page's "Our brands" heading */
+.brands-intro { padding: 72px clamp(60px, 5.5vw, 80px) 0; }
+.brands-intro__label { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.brands-intro h1 { margin-top: 18px; font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; }
+.brands-intro__lead { max-width: 640px; margin-top: 14px; font-size: 17px; line-height: 1.6; }
+
 .brand-feature { padding: 73px clamp(60px, 5.5vw, 80px) 74px; background: var(--white); }
+.brand-feature + .brand-feature { padding-top: 0; }   /* halves the gap between the two brands (147px to 74px) */
 .brand-feature__card { display: grid; grid-template-columns: 641fr 639fr; height: 646px; background: var(--white); }
 .brand-feature__img { display: block; overflow: hidden; }
 .brand-feature__img img { width: 100%; height: 100%; object-fit: cover; }
@@ -367,6 +374,9 @@ ul { padding: 0; list-style: none; }
   .about-cta__col .btn { margin-top: calc(7 * var(--u)); }
 
   /* brands: text on white with the photo hanging over the grey band below */
+  .brands-intro { padding: 40px 20px 32px; }
+  .brands-intro h1 { margin-top: 14px; }
+  .brands-intro__lead { font-size: 16px; }
   .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--white) 0); }
   .brand-feature__card { display: block; height: auto; background: none; }
   .brand-feature__img { position: absolute; left: calc(169 * var(--u)); top: calc(var(--mimg-top) * var(--u)); width: calc(var(--mimg-w) * var(--u)); height: calc(var(--mimg-h) * var(--u)); }
