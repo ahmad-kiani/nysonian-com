@@ -122,10 +122,10 @@ ul { padding: 0; list-style: none; }
 .nh-link:hover { opacity: .7; }
 .nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
 
-/* hero: fits the screen height on short laptop screens (100svh minus the 64px header). The luggage
+/* hero: fills the screen below the 64px header (capped on tall, narrow windows). The luggage
    photo is anchored bottom-right, never taller than the hero (2.474 is its aspect ratio), and fades
    into the backdrop at the top and, on very wide screens, at its left edge. */
-.nh-hero { --hero-h: clamp(480px, min(36vw + 120px, 100svh - 64px), 820px); position: relative; height: var(--hero-h); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
+.nh-hero { --hero-h: max(480px, min(100svh - 64px, 56vw + 160px)); position: relative; height: var(--hero-h); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
 .nh-hero__img img { position: absolute; right: 0; bottom: 0; width: min(100%, calc(var(--hero-h) * 2.474)); max-width: none;
   -webkit-mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%); -webkit-mask-composite: source-in;
   mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%); mask-composite: intersect; }
