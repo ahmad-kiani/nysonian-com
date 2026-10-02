@@ -23,6 +23,7 @@
   --careers-bg: #edebeb;    /* grey-100 at 80% over white */
   --footer: #282828;
   --nobl-deep: #0e2524;     /* the home hero photo's dark-green backdrop */
+  --nobl-tile: #0b3d39;     /* NOBL green: the home NOBL tile and the Brands page NOBL panel */
   --flo-beige: #eee6da;
   --strip: #f4f1ea;         /* the band under the home hero */
   --paper: #faf7f3;        /* the "How we work" band on the home page */
@@ -148,7 +149,7 @@ ul { padding: 0; list-style: none; }
 .nh-rail { position: absolute; z-index: 1; left: var(--frame); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--rail-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
 .nh-rail a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 22px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
 .nh-rail a:hover { filter: brightness(1.1); }
-.nh-rail__nobl { background: #0b3d39; color: var(--white); border-right: 1px solid rgba(255, 255, 255, .18); }
+.nh-rail__nobl { background: var(--nobl-tile); color: var(--white); border-right: 1px solid rgba(255, 255, 255, .18); }
 .nh-rail__nobl img { width: clamp(64px, 5vw, 96px); }
 .nh-rail__flo { background: var(--flo-beige); color: var(--ink); }
 .nh-rail__flo img { width: clamp(28px, 2.1vw, 40px); }
@@ -233,11 +234,11 @@ ul { padding: 0; list-style: none; }
 .brand-feature__tag { margin-top: 23px; font-size: 15px; font-weight: 700; font-style: italic; line-height: 21px; }
 .brand-feature__desc { max-width: var(--dw, 462px); font-size: 15px; line-height: 21px; }
 .brand-feature .btn-pill { margin-top: 32px; }
-/* brand panel colours, matching the home page: NOBL on the hero green, flo on the flo tile cream */
+/* brand panel colours, matching the home page's NOBL and flo tiles */
 .brand-feature__card { background: var(--panel, var(--white)); }
-.brand-feature--nobl { --panel: var(--nobl-deep); }
+.brand-feature--nobl { --panel: var(--nobl-tile); }
 .brand-feature--nobl .brand-feature__text { color: var(--white); }
-.brand-feature--nobl .btn-pill { background: var(--white); color: var(--nobl-deep); }
+.brand-feature--nobl .btn-pill { background: var(--white); color: var(--nobl-tile); }
 .brand-feature--nobl .btn-pill:hover { background: var(--flo-beige); }
 .brand-feature--flo { --panel: var(--flo-beige); }
 
