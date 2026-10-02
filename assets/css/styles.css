@@ -241,6 +241,9 @@ ul { padding: 0; list-style: none; }
 .brand-feature--nobl .btn-pill { background: var(--white); color: var(--nobl-tile); }
 .brand-feature--nobl .btn-pill:hover { background: var(--flo-beige); }
 .brand-feature--flo { --panel: var(--flo-beige); }
+/* flo alternates: text panel on the left, photo on the right */
+.brand-feature--flo .brand-feature__card { grid-template-columns: 639fr 641fr; }
+.brand-feature--flo .brand-feature__img { order: 2; }
 
 /* ---- team -------------------------------------------------------------- */
 .team { padding: 48px 0 59px; background: var(--grey-050); }
