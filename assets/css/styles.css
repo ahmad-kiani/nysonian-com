@@ -27,6 +27,9 @@
   --paper: #faf7f3;         /* the "How we work" band on the home page */
   --font: "Montserrat", Arial, sans-serif;
   --u: 1px;
+  /* page gutter for the header, footer and home page: at least 24-64px on laptops, and the 1352px
+     content column centred on wide screens */
+  --gutter: max(clamp(24px, 4vw, 64px), calc(50% - 676px));
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -70,7 +73,7 @@ ul { padding: 0; list-style: none; }
 /* ---- header ------------------------------------------------------------ */
 /* Modelled on nobltravel.com's header: a slim bar, small tracked Montserrat 500 links right after the
    logo, and a thin underline for hover and the current page. Replaces the Wix boxed links on every page. */
-.site-header { position: relative; z-index: 50; display: flex; align-items: center; height: 64px; padding-left: max(20px, calc(50% - 676px)); border-bottom: 1px solid var(--grey-100); background: var(--white); }
+.site-header { position: relative; z-index: 50; display: flex; align-items: center; height: 64px; padding: 0 var(--gutter); border-bottom: 1px solid var(--grey-100); background: var(--white); }
 .site-header__logo { display: flex; flex: none; align-items: center; gap: 12px; }
 .site-header__logo img { width: 44px; height: 34px; }
 .site-header__logo span { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
@@ -81,25 +84,26 @@ ul { padding: 0; list-style: none; }
 .menu-toggle { display: none; }
 
 /* ---- footer ------------------------------------------------------------ */
-.site-footer { --edge: max(18px, calc(50% - 702px)); position: relative; height: 460px; background: var(--footer); color: var(--white); }
-.site-footer__logo { position: absolute; left: var(--edge); top: 55px; width: 97px; height: 98px; object-fit: cover; }
-.site-footer__name { position: absolute; left: var(--edge); top: 149px; font-size: 19px; line-height: 26.6px; }
-.site-footer__nav { position: absolute; left: var(--edge); top: 217px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 19.6px; }
-.site-footer__nobl { position: absolute; left: calc(50% - 150px); top: 156px; }
-.site-footer__nobl img { width: 135px; height: 60px; }
-.site-footer__flo { position: absolute; left: calc(50% + 55px); top: 103px; }
-.site-footer__flo img { width: 165px; height: 165px; }
-.site-footer__legal { position: absolute; left: calc(50% - 299px); top: 314px; display: flex; gap: 18.6px; font-size: 10px; line-height: 14px; white-space: nowrap; }
-.site-footer__linkedin { position: absolute; left: var(--edge); top: 394px; }
-.site-footer__linkedin img { width: 39px; height: 39px; }
-.site-footer__copy { position: absolute; left: 0; right: 0; top: 441px; text-align: center; font-family: "Almarai", var(--font); font-weight: 300; font-size: 10px; line-height: 14px; }
+/* A normal flowing layout on the shared gutter, so it lines up with the header at every width. */
+.site-footer { padding: 64px var(--gutter) 32px; background: var(--footer); color: var(--white); }
+.site-footer__top { display: grid; grid-template-columns: 1.6fr 1fr 1fr auto; gap: 40px; align-items: start; }
+.site-footer__logo { width: 48px; height: auto; }
+.site-footer__name { margin-top: 16px; font-size: 16px; }
+.site-footer__label { margin-bottom: 16px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #bdbdbd; }
+.site-footer__nav { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 14px; }
+.site-footer__brands { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.site-footer__nobl { width: auto; height: 30px; }
+.site-footer__flo { width: auto; height: 34px; filter: invert(1); }
+.site-footer__linkedin img { width: 36px; height: 36px; }
+.site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; margin-top: 56px; padding-top: 24px; border-top: 1px solid #444; font-size: 12px; color: #bdbdbd; }
+.site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .site-footer a:hover { opacity: .75; }
 
 /* ---- home -------------------------------------------------------------- */
 /* The parent-company home page: hero, our brands, how we work, careers. Both brands get the same card;
    NOBL leads only by order, slightly more width and the hero photo. Sizes are fluid, and --edge lines
    content up with the header logo at every width. */
-.page-home { --edge: max(20px, calc(50% - 676px)); --h2: clamp(28px, 2.6vw, 40px); --sec: clamp(72px, 8vw, 128px); }
+.page-home { --edge: var(--gutter); --h2: clamp(28px, 2.6vw, 40px); --sec: clamp(72px, 8vw, 128px); }
 .page-home main img { height: auto; }   /* width/height attributes only reserve space; CSS sets the size */
 .page-home :is(h2, p) { text-wrap: pretty; }
 .nh-kicker { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
@@ -118,11 +122,18 @@ ul { padding: 0; list-style: none; }
 .nh-link:hover { opacity: .7; }
 .nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
 
-/* hero: the luggage photo is anchored bottom-right and fades into the backdrop at the top */
-.nh-hero { position: relative; height: clamp(540px, 36vw + 120px, 760px); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
-.nh-hero__img img { position: absolute; right: 0; bottom: 0; width: 100%; max-width: none;
-  -webkit-mask-image: linear-gradient(transparent, #000 22%); mask-image: linear-gradient(transparent, #000 22%); }
-.nh-hero__copy { position: relative; z-index: 1; max-width: 520px; padding: clamp(72px, 8vw, 128px) 0 0 var(--edge); box-sizing: content-box; }
+/* hero: fits the screen height on short laptop screens (100svh minus the 64px header). The luggage
+   photo is anchored bottom-right, never taller than the hero (2.474 is its aspect ratio), and fades
+   into the backdrop at the top and, on very wide screens, at its left edge. */
+.nh-hero { --hero-h: clamp(480px, min(36vw + 120px, 100svh - 64px), 820px); position: relative; height: var(--hero-h); overflow: hidden; background: var(--nobl-deep); color: var(--white); }
+.nh-hero__img img { position: absolute; right: 0; bottom: 0; width: min(100%, calc(var(--hero-h) * 2.474)); max-width: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%); -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%); mask-composite: intersect; }
+@media (max-width: 1999px) and (min-width: 1000px) {
+  /* the photo spans the full width here, so only the top fade is needed */
+  .nh-hero__img img { -webkit-mask-image: linear-gradient(transparent, #000 22%); mask-image: linear-gradient(transparent, #000 22%); }
+}
+.nh-hero__copy { position: relative; z-index: 1; max-width: 520px; padding: clamp(56px, min(8vw, 13svh), 128px) 0 0 var(--edge); box-sizing: content-box; }
 .nh-hero h1 { margin-top: 24px; font-size: clamp(38px, 4vw, 60px); font-weight: 400; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
 .nh-hero__sub { max-width: 26ch; margin-top: 22px; font-size: 18px; line-height: 1.45; }
 .nh-hero .nh-actions { margin-top: 36px; }
@@ -153,7 +164,8 @@ ul { padding: 0; list-style: none; }
 /* careers */
 .nh-careers { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; background: var(--white); }
 /* the column is half the page, so 100% - 676px here equals the page's 50% - 676px edge */
-.nh-careers__text { align-self: center; max-width: 720px; padding: 80px clamp(32px, 6vw, 96px) 80px max(20px, calc(100% - 676px)); }
+.nh-careers__text { align-self: center; padding: 80px clamp(32px, 5vw, 80px) 80px max(clamp(24px, 4vw, 64px), calc(100% - 676px)); }
+.nh-careers__text > * { max-width: 34rem; }
 .nh-careers__lead { margin-top: 22px; font-size: calc(var(--h2) * .8); line-height: 1.35; }
 .nh-careers .nh-pill { margin-top: 34px; }
 .nh-careers .nh-careers__img { width: 100%; height: 100%; object-fit: cover; }
@@ -262,20 +274,12 @@ ul { padding: 0; list-style: none; }
   .site-nav a { align-self: flex-start; height: 52px; font-size: 20px; letter-spacing: .04em; }
   .site-nav a::after { bottom: 10px; }
 
-  /* footer: centred and stacked; Wix drops the page links and brand logos here */
-  .site-footer { height: calc(494 * var(--u)); text-align: center; }
-  .site-footer__logo { left: 50%; top: calc(44 * var(--u)); width: calc(105 * var(--u)); height: calc(83 * var(--u)); transform: translateX(-50%); }
-  .site-footer__name { left: 0; right: 0; top: calc(133 * var(--u)); font-size: calc(19 * var(--u)); line-height: calc(26.6 * var(--u)); }
-  .site-footer__nav, .site-footer__nobl, .site-footer__flo { display: none; }
-  .site-footer__legal { left: 0; right: 0; top: calc(196 * var(--u)); flex-direction: column; align-items: center; gap: 0; font-size: calc(10 * var(--u)); line-height: calc(19 * var(--u)); }
-  .site-footer__legal .lp { order: -3; }
-  .site-footer__legal .terms { order: -2; }
-  .site-footer__legal .privacy { order: -1; }
-  .site-footer__legal .regular { order: 1; }
-  .site-footer__legal .disclosures { order: 2; }
-  .site-footer__linkedin { left: 50%; top: calc(360 * var(--u)); transform: translateX(-50%); }
-  .site-footer__linkedin img { width: calc(39 * var(--u)); height: calc(39 * var(--u)); }
-  .site-footer__copy { display: none; }
+  /* footer: two columns (company links, brands), then LinkedIn and the legal lines */
+  .site-footer { padding: 48px 20px 28px; }
+  .site-footer__top { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+  .site-footer__brand, .site-footer__linkedin { grid-column: 1 / -1; }
+  .site-footer__bottom { flex-direction: column; align-items: flex-start; margin-top: 40px; }
+  .site-footer__legal { gap: 8px 18px; }
 
   /* home (fluid px, not --u): hero text, then the luggage photo */
   .nh-hero { display: flex; flex-direction: column; height: auto; }
