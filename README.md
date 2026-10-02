@@ -23,7 +23,7 @@ The Nysonian Inc. corporate website as plain HTML and CSS: no framework, no buil
 A hand-written rebuild of [nysonian.com](https://www.nysonian.com), the home of Nysonian's consumer brands [NOBL Travel](https://nobltravel.com) and [flo Pilates](https://pilatesflo.com). It replaces the Wix site.
 
 The five pages, each a single file:
-- `index.html`: the home page, led by NOBL Travel: the luggage hero, a NOBL proof strip and feature, a smaller flo Pilates card, then the mission and careers sections.
+- `index.html`: the home page, led by NOBL Travel. It has the luggage hero, a trust strip, the NOBL range, the design features and "Why NOBL", then a compact flo Pilates section, the mission and careers.
 - `about.html`: the mission, the three pillars (Data, Customer, Product) and calls to action.
 - `brands.html`: NOBL Travel and flo Pilates, each linking to its own site.
 - `team.html`: the leadership grid with LinkedIn links.
@@ -55,7 +55,7 @@ There are no environment variables. Everything that sets the look lives on `:roo
 | `--ink` `--btn` `--footer` | text, button and footer colours (`#282828`, `#282626`) |
 | `--grey-050` `--grey-100` `--stone` `--band` | the section backgrounds, matched to the live site |
 | `--nobl` `--nobl-deep` `--nobl-line` | NOBL green and the hero backdrop, used by the home page's NOBL sections |
-| `--flo-beige` `--paper` | the flo card and the proof strip under the home hero |
+| `--flo-beige` `--paper` `--studio` | flo beige, the warm cream of the trust strip and careers, and the backdrop of NOBL's studio photos |
 | `--font` | Montserrat, falling back to Arial |
 | `--u` | the mobile unit: 1/320 of the viewport width, capped at 1.6px. Every mobile size is a multiple of it |
 
