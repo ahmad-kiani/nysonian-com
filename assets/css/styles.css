@@ -233,6 +233,13 @@ ul { padding: 0; list-style: none; }
 .brand-feature__tag { margin-top: 23px; font-size: 15px; font-weight: 700; font-style: italic; line-height: 21px; }
 .brand-feature__desc { max-width: var(--dw, 462px); font-size: 15px; line-height: 21px; }
 .brand-feature .btn-pill { margin-top: 32px; }
+/* brand panel colours, matching the home page: NOBL on the hero green, flo on the flo tile cream */
+.brand-feature__card { background: var(--panel, var(--white)); }
+.brand-feature--nobl { --panel: var(--nobl-deep); }
+.brand-feature--nobl .brand-feature__text { color: var(--white); }
+.brand-feature--nobl .btn-pill { background: var(--white); color: var(--nobl-deep); }
+.brand-feature--nobl .btn-pill:hover { background: var(--flo-beige); }
+.brand-feature--flo { --panel: var(--flo-beige); }
 
 /* ---- team -------------------------------------------------------------- */
 .team { padding: 48px 0 59px; background: var(--grey-050); }
@@ -356,7 +363,7 @@ ul { padding: 0; list-style: none; }
   .about-cta__col .btn { margin-top: calc(7 * var(--u)); }
 
   /* brands: text on white with the photo hanging over the grey band below */
-  .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--white) calc(var(--mwhite) * var(--u)), var(--grey-100) 0); }
+  .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--grey-100) 0); }
   .brand-feature__card { display: block; height: auto; background: none; }
   .brand-feature__img { position: absolute; left: calc(169 * var(--u)); top: calc(var(--mimg-top) * var(--u)); width: calc(var(--mimg-w) * var(--u)); height: calc(var(--mimg-h) * var(--u)); }
   .brand-feature__text { display: block; width: auto; margin: 0; padding: calc(var(--mpt) * var(--u)) calc(16 * var(--u)) 0 calc(var(--mpl) * var(--u)); }
