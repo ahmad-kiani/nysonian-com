@@ -132,10 +132,10 @@ ul { padding: 0; list-style: none; }
 /* our brands: two cards with the same structure */
 .nh-brands { padding: var(--sec) var(--edge); background: var(--white); }
 .nh-brands h2, .nh-how h2 { max-width: 760px; margin-top: 18px; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
-.nh-brands__grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 3vw, 48px); margin-top: 56px; }
+/* equal square cards: a fixed shape keeps the whole product in frame at every width */
+.nh-brands__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 48px); margin-top: 56px; }
 .nh-brand { display: flex; flex-direction: column; align-items: flex-start; }
-.nh-brand .nh-brand__img { width: 100%; height: clamp(320px, 30vw, 480px); object-fit: cover; }
-.nh-brand:first-child .nh-brand__img { object-position: 50% 8%; }
+.nh-brand .nh-brand__img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 .nh-brand .nh-brand__logo { width: auto; height: 36px; margin-top: 28px; }
 .nh-brand__logo--nobl { filter: brightness(0); }   /* the white NOBL tag, inked like NOBL's own header logo */
 .nh-brand__desc { max-width: 40ch; margin-top: 18px; font-size: 16px; line-height: 1.55; }
@@ -288,7 +288,6 @@ ul { padding: 0; list-style: none; }
 
   .nh-brands { padding: 64px 20px; }
   .nh-brands__grid { grid-template-columns: 1fr; gap: 56px; margin-top: 40px; }
-  .nh-brand .nh-brand__img { height: auto; aspect-ratio: 4 / 3; }
 
   .nh-how { padding: 64px 20px; }
   .nh-how__grid { grid-template-columns: 1fr; gap: 32px; margin: 40px 0; }
