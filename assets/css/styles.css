@@ -224,7 +224,7 @@ ul { padding: 0; list-style: none; }
 .about-cta__col .btn { margin-top: 43px; }
 
 /* ---- brands ------------------------------------------------------------ */
-.brand-feature { padding: 73px clamp(60px, 5.5vw, 80px) 74px; background: var(--grey-100); }
+.brand-feature { padding: 73px clamp(60px, 5.5vw, 80px) 74px; background: var(--white); }
 .brand-feature__card { display: grid; grid-template-columns: 641fr 639fr; height: 646px; background: var(--white); }
 .brand-feature__img { display: block; overflow: hidden; }
 .brand-feature__img img { width: 100%; height: 100%; object-fit: cover; }
@@ -367,7 +367,7 @@ ul { padding: 0; list-style: none; }
   .about-cta__col .btn { margin-top: calc(7 * var(--u)); }
 
   /* brands: text on white with the photo hanging over the grey band below */
-  .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--grey-100) 0); }
+  .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--white) 0); }
   .brand-feature__card { display: block; height: auto; background: none; }
   .brand-feature__img { position: absolute; left: calc(169 * var(--u)); top: calc(var(--mimg-top) * var(--u)); width: calc(var(--mimg-w) * var(--u)); height: calc(var(--mimg-h) * var(--u)); }
   .brand-feature__text { display: block; width: auto; margin: 0; padding: calc(var(--mpt) * var(--u)) calc(16 * var(--u)) 0 calc(var(--mpl) * var(--u)); }
