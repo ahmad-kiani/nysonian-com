@@ -23,13 +23,13 @@ The Nysonian Inc. corporate website as plain HTML and CSS: no framework, no buil
 A hand-written rebuild of [nysonian.com](https://www.nysonian.com), the home of Nysonian's consumer brands [NOBL Travel](https://nobltravel.com) and [flo Pilates](https://pilatesflo.com). It replaces the Wix site.
 
 The five pages, each a single file:
-- `index.html`: the home page, led by NOBL Travel. It has the luggage hero, a trust strip, the NOBL range, the design features and "Why NOBL", then a compact flo Pilates section, the mission and careers.
+- `index.html`: the home page: the hero, Our brands (NOBL Travel and flo Pilates), How we work, and careers.
 - `about.html`: the mission, the three pillars (Data, Customer, Product) and calls to action.
 - `brands.html`: NOBL Travel and flo Pilates, each linking to its own site.
 - `team.html`: the leadership grid with LinkedIn links.
 - `careers.html`: culture and hiring, linking to the LinkedIn job listings.
 
-Apart from the top of the home page, the pages match the live Wix site on desktop and mobile. On desktop, content keeps its size and stays anchored to the centre of the window. On phones the site uses Wix's mobile layout, designed 320px wide and scaled to the screen, with the same section order and ☰ menu.
+The home page and the header are new. The header is modelled on nobltravel.com: a slim bar with small tracked links, and on phones the ☰ on the left with the logo centred. Below the header, the other four pages match the live Wix site on desktop and mobile. On desktop, content keeps its size and stays anchored to the centre of the window. On phones they use Wix's mobile layout, designed 320px wide and scaled to the screen.
 
 Every page shares one stylesheet (`assets/css/styles.css`) and one script (`assets/js/menu.js`, the mobile menu). Fonts (Montserrat, Almarai) and images (WebP/JPEG) are self-hosted under `assets/`, so the site makes no third-party requests. The whole site is about 1.1 MB.
 
@@ -54,8 +54,7 @@ There are no environment variables. Everything that sets the look lives on `:roo
 |---|---|
 | `--ink` `--btn` `--footer` | text, button and footer colours (`#282828`, `#282626`) |
 | `--grey-050` `--grey-100` `--stone` `--band` | the section backgrounds, matched to the live site |
-| `--nobl` `--nobl-deep` `--nobl-line` | NOBL green and the hero backdrop, used by the home page's NOBL sections |
-| `--flo-beige` `--paper` `--studio` | flo beige, the warm cream of the trust strip and careers, and the backdrop of NOBL's studio photos |
+| `--nobl-deep` `--paper` `--flo-beige` | the home hero backdrop, the "How we work" band and the light button hover |
 | `--font` | Montserrat, falling back to Arial |
 | `--u` | the mobile unit: 1/320 of the viewport width, capped at 1.6px. Every mobile size is a multiple of it |
 
