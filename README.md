@@ -54,7 +54,9 @@ There are no environment variables. Everything that sets the look lives on `:roo
 |---|---|
 | `--ink` `--btn` `--footer` | text, button and footer colours (`#282828`, `#282626`) |
 | `--grey-050` `--grey-100` `--stone` `--band` | the section backgrounds, matched to the live site |
-| `--gutter` | the page gutter shared by the header, footer and home page: 24–64px on laptops, and a centred 1352px column on wide screens |
+| `--frame` | the edge of the full-width bands (header, home hero, footer): 3.7% of the width, the same margin the hero photo leaves right of the luggage |
+| `--gutter` | the content column of the home page sections: 24–64px on laptops, a centred 1352px column on wide screens |
+| `--strip` | the cream band under the home hero |
 | `--nobl-deep` `--paper` `--flo-beige` | the home hero backdrop, the "How we work" band and the light button hover |
 | `--font` | Montserrat, falling back to Arial |
 | `--u` | the mobile unit: 1/320 of the viewport width, capped at 1.6px. Every mobile size is a multiple of it |

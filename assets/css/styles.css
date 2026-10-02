@@ -24,12 +24,16 @@
   --footer: #282828;
   --nobl-deep: #0e2524;     /* the home hero photo's dark-green backdrop */
   --flo-beige: #eee6da;
-  --paper: #faf7f3;         /* the "How we work" band on the home page */
+  --strip: #f4f1ea;         /* the band under the home hero */
+  --paper: #faf7f3;        /* the "How we work" band on the home page */
   --font: "Montserrat", Arial, sans-serif;
   --u: 1px;
   /* page gutter for the header, footer and home page: at least 24-64px on laptops, and the 1352px
      content column centred on wide screens */
   --gutter: max(clamp(24px, 4vw, 64px), calc(50% - 676px));
+  /* edge for full-width bands (header, home hero, footer): 3.7% of the width, the same margin the hero
+     photo leaves right of the luggage, so those bands look even on both sides at every width */
+  --frame: clamp(24px, 3.7vw, 96px);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -73,7 +77,7 @@ ul { padding: 0; list-style: none; }
 /* ---- header ------------------------------------------------------------ */
 /* Modelled on nobltravel.com's header: a slim bar, small tracked Montserrat 500 links right after the
    logo, and a thin underline for hover and the current page. Replaces the Wix boxed links on every page. */
-.site-header { position: relative; z-index: 50; display: flex; align-items: center; height: 64px; padding: 0 var(--gutter); border-bottom: 1px solid var(--grey-100); background: var(--white); }
+.site-header { position: relative; z-index: 50; display: flex; align-items: center; height: 64px; padding: 0 var(--frame); border-bottom: 1px solid var(--grey-100); background: var(--white); }
 .site-header__logo { display: flex; flex: none; align-items: center; gap: 12px; }
 .site-header__logo img { width: 44px; height: 34px; }
 .site-header__logo span { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
@@ -85,7 +89,7 @@ ul { padding: 0; list-style: none; }
 
 /* ---- footer ------------------------------------------------------------ */
 /* A normal flowing layout on the shared gutter, so it lines up with the header at every width. */
-.site-footer { padding: 64px var(--gutter) 32px; background: var(--footer); color: var(--white); }
+.site-footer { padding: 64px var(--frame) 32px; background: var(--footer); color: var(--white); }
 .site-footer__top { display: grid; grid-template-columns: 1.6fr 1fr 1fr auto; gap: 40px; align-items: start; }
 .site-footer__logo { width: 48px; height: auto; }
 .site-footer__name { margin-top: 16px; font-size: 16px; }
@@ -122,38 +126,45 @@ ul { padding: 0; list-style: none; }
 .nh-link:hover { opacity: .7; }
 .nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
 
-/* hero: fills the screen below the 64px header. The text column (--copy-w) sits on the page edge with
-   the brand rail under it; the luggage starts just right of that column (--lug-left) and is as large as
-   the remaining width allows, ending --lug-right from the window edge so no case is ever cut off.
-   In the photo the luggage spans 40%-96.3% of the width (0.563 of it) and the image is 2.474:1, so
-   --img-w places and sizes it. The photo's left quarter and top are plain backdrop, faded into the
-   hero colour so no edge shows. */
+/* hero: a banner in the photo's own proportions (2.474:1), like the NOBL and flo home pages, so the
+   photo always fills it edge to edge and is never stretched or cut. Below 1335px wide the 540px minimum
+   adds plain backdrop above the photo, which fades into it. In the photo the luggage spans 40%-96.3%
+   of the width, so the text column ends before 40% and the --frame edge (3.7%) mirrors the margin
+   right of the luggage. The text is centred in the space above the brand rail. */
 .nh-hero {
-  --hero-h: max(480px, min(100svh - 64px, 56vw + 160px));
-  --copy-w: clamp(380px, 30vw, 500px);
-  --lug-left: calc(var(--edge) + var(--copy-w) + 32px);
-  --lug-right: clamp(24px, 3vw, 64px);
-  --img-w: min(var(--hero-h) * 2.3, (100% - var(--lug-left) - var(--lug-right)) / .563);
-  position: relative; height: var(--hero-h); overflow: hidden; background: var(--nobl-deep); color: var(--white);
+  --copy-w: clamp(300px, 36vw - 40px, 500px);
+  --rail-h: 88px;
+  --rail-bottom: clamp(28px, 2.6vw, 56px);
+  position: relative; display: flex; flex-direction: column; justify-content: center;
+  width: 100%; aspect-ratio: 2474 / 1000; min-height: 540px;   /* a set width keeps min-height from widening the box */ padding: 40px 0 calc(var(--rail-h) + var(--rail-bottom) + 32px);
+  overflow: hidden; background: var(--nobl-deep); color: var(--white);
 }
-.nh-hero__img img { position: absolute; bottom: 0; left: calc(var(--lug-left) - var(--img-w) * .4); width: var(--img-w); max-width: none;
-  -webkit-mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 28%); -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(transparent, #000 22%), linear-gradient(90deg, transparent, #000 28%); mask-composite: intersect; }
-.nh-hero__copy { position: relative; z-index: 1; max-width: var(--copy-w); padding: clamp(56px, min(8vw, 13svh), 128px) 0 0 var(--edge); box-sizing: content-box; }
+.nh-hero__img img { position: absolute; left: 0; bottom: 0; width: 100%; max-width: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%); mask-image: linear-gradient(transparent, #000 14%); }
+.nh-hero__copy { position: relative; z-index: 1; max-width: var(--copy-w); padding-left: var(--frame); box-sizing: content-box; }
 
 /* brand rail: the two brands as equal tiles in the bottom-left, under the text column */
-.nh-rail { position: absolute; z-index: 1; left: var(--edge); bottom: clamp(32px, 6svh, 64px); display: grid; grid-template-columns: 1fr 1fr; width: var(--copy-w); height: 88px; border: 1px solid rgba(255, 255, 255, .18); }
+.nh-rail { position: absolute; z-index: 1; left: var(--frame); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--copy-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
 .nh-rail a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 22px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
 .nh-rail a:hover { filter: brightness(1.1); }
 .nh-rail__nobl { background: #0b3d39; color: var(--white); border-right: 1px solid rgba(255, 255, 255, .18); }
 .nh-rail__nobl img { width: 96px; }
 .nh-rail__flo { background: var(--flo-beige); color: var(--ink); }
 .nh-rail__flo img { width: 40px; }
+/* narrow desktops: the tiles are too small for logo plus label, so show the logos only */
+@media (min-width: 1000px) and (max-width: 1365px) { .nh-rail a { justify-content: center; } .nh-rail span { display: none; } }
+.nh-hero__copy > .nh-kicker { margin: 0; }
 .nh-hero h1 { margin-top: 24px; font-size: clamp(38px, 3.2vw + 10px, 72px); font-weight: 400; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
 .nh-hero__sub { max-width: 26ch; margin-top: 22px; font-size: clamp(18px, .5vw + 11px, 22px); line-height: 1.45; }
 .nh-hero .nh-actions { margin-top: 36px; }
 /* on narrow desktops the luggage starts at about 40% of the width, so the two actions stack */
 @media (min-width: 1000px) and (max-width: 1199px) { .nh-hero .nh-actions { flex-direction: column; align-items: flex-start; } }
+
+/* strip under the hero: a clear boundary, like the trust strips on the NOBL and flo home pages */
+.nh-strip { padding: 22px var(--frame); background: var(--strip); border-bottom: 1px solid #e6e0d4; }
+.nh-strip ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px clamp(40px, 8vw, 128px); }
+.nh-strip li { display: flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.nh-strip svg { flex: none; width: 28px; height: 28px; fill: none; stroke: var(--nobl-deep); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 /* our brands: two cards with the same structure */
 .nh-brands { padding: var(--sec) var(--edge); background: var(--white); }
@@ -297,7 +308,7 @@ ul { padding: 0; list-style: none; }
   .site-footer__legal { gap: 8px 18px; }
 
   /* home (fluid px, not --u): hero text, then the luggage photo */
-  .nh-hero { display: flex; flex-direction: column; height: auto; }
+  .nh-hero { justify-content: flex-start; height: auto; aspect-ratio: auto; min-height: 0; padding: 0; }
   .nh-hero__img { order: 1; margin-top: 12px; }
   .nh-hero__img img { position: static; width: 100%; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); }
   .nh-hero__copy { max-width: none; padding: 52px 20px 0; }
@@ -308,6 +319,9 @@ ul { padding: 0; list-style: none; }
   .nh-rail a { padding: 0 16px; font-size: 10px; letter-spacing: .16em; }
   .nh-rail__nobl img { width: 72px; }
   .nh-rail__flo img { width: 32px; }
+  .nh-strip { padding: 20px 12px; }
+  .nh-strip ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .nh-strip li { flex-direction: column; gap: 8px; text-align: center; font-size: 10px; letter-spacing: .1em; }
 
   .nh-brands { padding: 64px 20px; }
   .nh-brands__grid { grid-template-columns: 1fr; gap: 56px; margin-top: 40px; }
