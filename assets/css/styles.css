@@ -363,7 +363,7 @@ p { text-wrap: pretty; }
 
   /* touch: the text links are about 20px tall, so give each an invisible 44px tap area (no visual change) */
   :is(.nh-link, .nh-brand__link, .brands-who__link, .site-footer__brands a) { position: relative; }
-  :is(.nh-link, .nh-brand__link, .brands-who__link)::after { content: ""; position: absolute; inset: -.75rem -.375rem; }
+  :is(.nh-link, .nh-brand__link, .brands-who__link)::after { content: ""; position: absolute; inset: -.875rem -.375rem; }
   .site-footer__nav { gap: 0; }
   .site-footer__nav a { display: flex; align-items: center; min-width: 2.75rem; min-height: 2.75rem; }
   .site-footer__brands a::after { content: ""; position: absolute; inset: -.5rem; }
