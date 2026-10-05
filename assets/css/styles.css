@@ -270,7 +270,8 @@ ul { padding: 0; list-style: none; }
 /* brand panel colours, matching the home page's NOBL and flo tiles */
 .brand-feature__card { background: var(--panel, var(--white)); }
 .brand-feature--nobl { --panel: var(--nobl-tile); }
-/* the NOBL photo is 4:5 portrait: its column is 0.8 x the panel's 646px height, so the whole photo shows */
+/* both brand photos are 4:5 portrait: each photo column is 0.8 x the panel's 646px height, so the whole photo
+   shows, and the two panels mirror each other (NOBL photo left, flo photo right) */
 @media (min-width: 1000px) { .brand-feature--nobl .brand-feature__card { grid-template-columns: min(517px, 50%) 1fr; } }
 .brand-feature__nobl-photo { object-position: 50% 50%; }
 .brand-feature--nobl .brand-feature__text { color: var(--white); }
@@ -278,7 +279,7 @@ ul { padding: 0; list-style: none; }
 .brand-feature--nobl .btn-pill:hover { background: var(--flo-beige); }
 .brand-feature--flo { --panel: var(--flo-beige); }
 /* flo alternates: text panel on the left, photo on the right */
-.brand-feature--flo .brand-feature__card { grid-template-columns: 639fr 641fr; }
+.brand-feature--flo .brand-feature__card { grid-template-columns: 1fr min(517px, 50%); }
 .brand-feature--flo .brand-feature__img { order: 2; }
 
 /* ---- team -------------------------------------------------------------- */
