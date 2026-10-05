@@ -360,20 +360,21 @@ ul { padding: 0; list-style: none; }
   .nh-hero { justify-content: flex-start; height: auto; aspect-ratio: auto; min-height: 0; padding: 0; }
   .nh-hero__img { order: 1; margin-top: 12px; }
   .nh-hero__img img { position: static; width: 100%; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); }
-  .nh-hero__copy { max-width: none; padding: 52px 20px 0; }
+  .nh-hero__copy { max-width: none; padding: 40px 20px 0; }
   .nh-hero h1 { font-size: clamp(34px, 9vw, 40px); }
   .nh-hero__sub { margin-top: 16px; font-size: 17px; }
   .nh-hero .nh-actions { margin-top: 28px; }
   .nh-rail { position: relative; order: 2; left: auto; bottom: auto; width: auto; height: 72px; margin: 0 20px 28px; }
-  .nh-rail a { padding: 0 16px; font-size: 10px; letter-spacing: .16em; }
+  .nh-rail a { justify-content: center; gap: clamp(12px, 4vw, 28px); padding: 0 12px; font-size: 11px; letter-spacing: .14em; }   /* logo and label together, not pushed to opposite ends */
   .nh-rail__nobl img { width: 72px; }
   .nh-rail__flo img { width: 32px; }
   .nh-strip { padding: 20px 12px; }
   .nh-strip ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .nh-strip li { flex-direction: column; gap: 8px; text-align: center; font-size: 10px; letter-spacing: .1em; }
+  .nh-strip li { flex-direction: column; gap: 8px; text-align: center; font-size: 11px; letter-spacing: .08em; }
 
   .nh-brands { padding: 64px 20px; }
   .nh-brands__grid { grid-template-columns: 1fr; gap: 56px; margin-top: 40px; }
+  .nh-brand__meta { font-size: 12px; color: #5c5c5c; }
 
   .nh-how { padding: 64px 20px; }
   .nh-how__grid { grid-template-columns: 1fr; gap: 32px; margin: 40px 0; }
@@ -381,6 +382,11 @@ ul { padding: 0; list-style: none; }
   .nh-careers { grid-template-columns: 1fr; min-height: 0; }
   .nh-careers__text { padding: 64px 20px; }
   .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
+
+  /* touch: the text links are about 20px tall, so give each an invisible 44px tap area (no visual change) */
+  :is(.nh-link, .nh-brand__link, .site-footer__nav a, .site-footer__brands a) { position: relative; }
+  :is(.nh-link, .nh-brand__link)::after { content: ""; position: absolute; inset: -12px -6px; }
+  :is(.site-footer__nav a, .site-footer__brands a)::after { content: ""; position: absolute; inset: -6px -8px; }
 
   /* about */
   .about-hero { aspect-ratio: 2 / 1; max-height: none; }
@@ -446,6 +452,28 @@ ul { padding: 0; list-style: none; }
   .careers-card__text p { max-width: 30rem; margin-top: 16px; font-size: 17px; }
   .careers-card .careers-card__btn { width: 200px; height: 46px; margin-top: 28px; font-size: 14px; }
   .careers-card__img { aspect-ratio: 4 / 3; }
+}
+
+/* tablets and narrow windows (600-999px): the Home sections go side by side again instead of one tall
+   column, so a brand photo is never a 780-960px square and the page is about a third shorter */
+@media (min-width: 600px) and (max-width: 999px) {
+  .nh-brands { padding: 72px 32px; }
+  .nh-brands__grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .nh-brand .nh-brand__logo { height: 30px; margin-top: 22px; }
+  .nh-brand__desc { font-size: 15px; }
+  .nh-how { padding: 72px 32px; }
+  .nh-hero__copy, .nh-strip { padding-left: 32px; padding-right: 32px; }
+  .nh-hero__img { margin-top: -5vw; }   /* the photo's top is empty backdrop that fades in; overlap it with the gap under the buttons */
+  .nh-rail { margin-left: 32px; margin-right: 32px; }
+}
+@media (min-width: 760px) and (max-width: 999px) {
+  .nh-how__grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .nh-how__grid p { font-size: 15px; }
+}
+@media (min-width: 700px) and (max-width: 999px) {
+  .nh-careers { grid-template-columns: 1fr 1fr; min-height: 460px; }
+  .nh-careers__text { align-self: center; padding: 56px 32px; }
+  .nh-careers .nh-careers__img { height: 0; min-height: 100%; aspect-ratio: auto; }
 }
 
 /* phones: the About hero photos stack, each full width, so neither is squeezed into a narrow half */
