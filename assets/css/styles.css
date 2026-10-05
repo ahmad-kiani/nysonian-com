@@ -198,7 +198,7 @@ ul { padding: 0; list-style: none; }
 .nh-careers__text > * { max-width: 34rem; }
 .nh-careers__lead { margin-top: 22px; font-size: calc(var(--h2) * .8); line-height: 1.35; }
 .nh-careers .nh-pill { margin-top: 34px; }
-.nh-careers .nh-careers__img { width: 100%; height: 100%; object-fit: cover; }
+.nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 50% 40%; }   /* height 0: the square photo fills the row without making it taller */
 
 /* ---- about ------------------------------------------------------------- */
 .about-hero { height: 784px; background: var(--grey-100); overflow: hidden; }
@@ -372,7 +372,7 @@ ul { padding: 0; list-style: none; }
 
   .nh-careers { grid-template-columns: 1fr; min-height: 0; }
   .nh-careers__text { padding: 64px 20px; }
-  .nh-careers .nh-careers__img { height: auto; aspect-ratio: 4 / 3; }
+  .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
 
   /* about */
   .about-hero { aspect-ratio: auto; height: calc(200 * var(--u)); }
