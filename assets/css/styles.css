@@ -95,7 +95,7 @@ p { text-wrap: pretty; }
 .site-nav a { position: relative; display: flex; align-items: center; justify-content: center; height: 2.75rem; min-width: 2.75rem; font-size: .75rem; font-weight: 500; letter-spacing: .1em; color: var(--ink); }
 .site-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: .625rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .site-nav a[aria-current="page"]::after { transform: none; }
-.site-nav .site-nav__home { display: none; }   /* the logo is the home link on wide screens; the phone menu lists it */
+.site-nav .site-nav__home, .site-nav__foot { display: none; }   /* phone menu only: the logo is the home link on wide screens */
 .menu-toggle { display: none; }
 
 /* ---- footer ------------------------------------------------------------ */
@@ -318,8 +318,21 @@ p { text-wrap: pretty; }
   }
   .menu-open .site-nav { visibility: visible; opacity: 1; transition: opacity .25s ease; }
   .menu-open { overflow: hidden; }
-  .site-nav a, .site-nav .site-nav__home { display: flex; align-self: flex-start; height: 3.25rem; font-size: 1.25rem; letter-spacing: .04em; }
-  .site-nav a::after { bottom: .625rem; }
+  /* large links on full-width rows, then the brands and LinkedIn pinned to the bottom, in thumb reach */
+  .site-nav { padding-top: .5rem; }
+  .site-nav > a, .site-nav > .site-nav__home { display: flex; justify-content: flex-start; height: 4rem; border-bottom: 1px solid var(--grey-100); font-size: 1.5rem; font-weight: 400; letter-spacing: .01em; }
+  .site-nav > a::after { display: none; }
+  .site-nav > a[aria-current="page"] { font-weight: 500; }
+  .site-nav > a[aria-current="page"]::before { content: ""; width: .375rem; height: .375rem; margin-right: .75rem; border-radius: 50%; background: var(--nobl-tile); }
+  .site-nav .site-nav__foot { display: block; margin-top: auto; padding-top: 2rem; }
+  .site-nav__label { font-size: .75rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #6b6b6b; }
+  .site-nav__brands { display: grid; grid-template-columns: 1fr 1fr; margin-top: 1rem; }
+  .site-nav__brands a { display: flex; align-items: center; justify-content: center; height: 4.5rem; }
+  .site-nav__nobl { background: var(--nobl-tile); }
+  .site-nav__nobl img { width: 4.5rem; }
+  .site-nav__flo { background: var(--flo-beige); }
+  .site-nav__flo img { width: 2rem; }
+  .site-nav .site-nav__social { display: inline-flex; justify-content: flex-start; align-items: center; gap: .5rem; height: auto; min-height: 2.75rem; margin-top: 1rem; font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 }
 
 @media (max-width: 999px) {
