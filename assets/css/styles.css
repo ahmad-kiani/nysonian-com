@@ -419,9 +419,10 @@ p { text-wrap: pretty; }
 }
 
 /* very narrow phones (under 360px): labels may wrap, the brand tiles show logos only, the strip stacks */
-/* phones: the two hero actions stack, centred */
-@media (max-width: 479px) {
-  .nh-hero .nh-actions { flex-direction: column; gap: 1.125rem; }
+/* phones: the hero drops its two actions. The brand tiles under the photo are the links to the brands,
+   "Our brands" starts just below and About is in the menu, so the whole hero fits the first screen */
+@media (max-width: 767px) {
+  .nh-hero .nh-actions { display: none; }
   .nh-hero__img { margin-top: 0; }
 }
 @media (max-width: 359px) {
