@@ -205,8 +205,12 @@ ul { padding: 0; list-style: none; }
    the three pillars as hairline columns, and two closing tiles in the NOBL and flo colours.
    All sizes are fluid px on the shared --gutter column. */
 .page-about :is(h1, h2, h3, p) { text-wrap: pretty; }
-.ab-hero { width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: #eceef1; }   /* the photo's own ratio; the cap keeps the page heading on a laptop's first screen */
-.ab-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+/* hero: the two brands side by side (NOBL left, flo right), split by a thin page-colour line; the cap keeps
+   the page heading on a laptop's first screen */
+.ab-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: var(--page); }
+.ab-hero img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+.ab-hero__nobl { object-position: 50% 12%; }
+.ab-hero__flo { object-position: 50% 45%; }
 
 .ab-statement { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 112px); align-items: start; padding: clamp(72px, 8vw, 120px) var(--gutter); }
 .ab-statement :is(h1, h2) { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
@@ -380,8 +384,7 @@ ul { padding: 0; list-style: none; }
   .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
 
   /* about (fluid px, not --u): everything stacks on a 20px gutter */
-  .ab-hero { aspect-ratio: 16 / 9; max-height: none; }
-  .ab-hero img { object-position: 55% 60%; }
+  .ab-hero { aspect-ratio: 4 / 3; max-height: none; gap: 3px; }
   .ab-statement { grid-template-columns: 1fr; gap: 20px; padding: 56px 20px; }
   .ab-statement p { font-size: 19px; }
   .ab-pillars { grid-template-columns: 1fr; gap: 0; padding: 32px 20px 56px; }
