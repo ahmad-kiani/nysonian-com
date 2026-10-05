@@ -333,7 +333,6 @@ p { text-wrap: pretty; }
   .site-nav__nobl img { width: 4.5rem; }
   .site-nav__flo { background: var(--flo-beige); }
   .site-nav__flo img { width: 2rem; }
-  .site-nav .site-nav__social { display: inline-flex; justify-content: flex-start; align-items: center; gap: .5rem; height: auto; min-height: 2.75rem; margin-top: 1rem; font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 }
 
 @media (max-width: 999px) {
@@ -353,6 +352,7 @@ p { text-wrap: pretty; }
   .nh-strip { padding: 1.25rem var(--pad); }
   .nh-strip ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
   .nh-strip li { flex-direction: column; gap: .5rem; text-align: center; letter-spacing: .08em; line-height: 1.35; }
+  .nh-strip li > span > span { display: block; }   /* every label on two lines, so the three read evenly */
 
   .nh-brands__grid { grid-template-columns: 1fr; gap: 3.5rem; margin-top: 2.5rem; }
   .nh-how__grid { grid-template-columns: 1fr; gap: 2rem; margin: 2.5rem 0; }
@@ -445,6 +445,7 @@ p { text-wrap: pretty; }
   .nh-rail span { display: none; }
   .nh-strip ul { grid-template-columns: 1fr; justify-items: start; gap: .625rem; }
   .nh-strip li { flex-direction: row; gap: .75rem; text-align: left; }
+  .nh-strip li > span > span { display: inline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
