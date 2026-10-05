@@ -300,16 +300,17 @@ p { text-wrap: pretty; }
   .site-header__logo { grid-column: 2; justify-self: center; gap: .625rem; }
   .site-header__logo img { width: 2.625rem; }
   .menu-toggle {
-    position: relative; z-index: 60; display: block; grid-column: 1; grid-row: 1; width: 2.75rem; height: 2.75rem;
+    position: relative; z-index: 60; display: block; grid-column: 1; grid-row: 1; width: 44px; height: 44px;
     padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
   }
-  .menu-toggle span { position: absolute; left: 22.5%; width: 55%; height: 1.5px; background: currentColor; transition: transform .25s ease, opacity .2s ease; }
-  .menu-toggle span:nth-child(1) { top: 30%; }
-  .menu-toggle span:nth-child(2) { top: 50%; }
-  .menu-toggle span:nth-child(3) { top: 70%; }
-  .menu-open .menu-toggle span:nth-child(1) { top: 50%; transform: rotate(45deg); }
+  /* whole-pixel lines (2px thick, 7px apart) so the three bars render identically on every screen */
+  .menu-toggle span { position: absolute; left: 11px; width: 22px; height: 2px; border-radius: 1px; background: currentColor; transition: transform .25s ease, opacity .2s ease; }
+  .menu-toggle span:nth-child(1) { top: 14px; }
+  .menu-toggle span:nth-child(2) { top: 21px; }
+  .menu-toggle span:nth-child(3) { top: 28px; }
+  .menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
-  .menu-open .menu-toggle span:nth-child(3) { top: 50%; transform: rotate(-45deg); }
+  .menu-open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   /* the menu opens under the header, so the logo and the close button stay in place */
   .site-nav {
     position: fixed; inset: 3.5rem 0 0; z-index: 55; flex-direction: column; gap: 0; margin: 0;
