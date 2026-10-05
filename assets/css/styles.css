@@ -201,29 +201,34 @@ ul { padding: 0; list-style: none; }
 .nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 50% 40%; }   /* height 0: the square photo fills the row without making it taller */
 
 /* ---- about ------------------------------------------------------------- */
-.about-hero { height: 784px; background: var(--grey-100); overflow: hidden; }
+/* In the Home and Brands style: a photo banner, two statements as heading-left / text-right rows,
+   the three pillars as hairline columns, and two closing tiles in the NOBL and flo colours.
+   All sizes are fluid px on the shared --gutter column. */
+.page-about :is(h1, h2, h3, p) { text-wrap: pretty; }
+.ab-hero { width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: #eceef1; }   /* the photo's own ratio; the cap keeps the page heading on a laptop's first screen */
+.ab-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 
+.ab-statement { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 112px); align-items: start; padding: clamp(72px, 8vw, 120px) var(--gutter); }
+.ab-statement :is(h1, h2) { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
+.ab-statement p { font-size: clamp(20px, 1.2vw + 6px, 26px); line-height: 1.5; }
+.ab-statement--green { background: var(--nobl-deep); color: var(--white); }
+.ab-statement--green + .ab-statement { border-bottom: 1px solid #e6e0d4; }
+
+.ab-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 64px); padding: clamp(64px, 7vw, 104px) var(--gutter); background: var(--strip); }
+.ab-pillar { padding-top: 28px; border-top: 1px solid var(--ink); }
+.ab-pillar h3 { font-size: 13px; font-weight: 700; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; }
+.ab-pillar p { margin-top: 14px; font-size: 16px; line-height: 1.65; }
+
+.ab-cta { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 32px); padding: clamp(64px, 7vw, 104px) var(--gutter); }
+.ab-cta__tile { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 32px; min-height: 240px; padding: clamp(32px, 3.5vw, 56px); background: var(--flo-beige); color: var(--ink); }
+.ab-cta__tile p { max-width: 16ch; font-size: clamp(24px, 1.6vw + 6px, 32px); line-height: 1.25; }
+.ab-cta__tile--green { background: var(--nobl-tile); color: var(--white); }
+.ab-cta .nh-pill::after { content: "→"; }
+
+/* shared with the Careers page */
 .statement { text-align: center; }
 .statement :is(h1, h2) { font-size: 30px; font-weight: 700; letter-spacing: 1.5px; }
 .statement p { max-width: 860px; margin: 0 auto; padding: 0 24px; font-size: 28px; line-height: 36.4px; }
-.statement--dark { height: 483px; padding-top: 127px; background: var(--ink); color: var(--white); }
-.statement--dark :is(h1, h2) { color: #fffffe; }
-.statement--dark p { margin-top: 53px; }
-.statement--light { height: 445px; padding-top: 124px; }
-.statement--light p { margin-top: 49px; }
-
-.pillars { display: grid; grid-template-columns: 489fr 475fr 476fr; border-bottom: 2px solid var(--grey-100); }
-.pillar { height: 584px; padding: 106px 20px 0; background: var(--grey-050); text-align: center; }
-.pillar--stone { background: var(--stone); }
-.pillar h3 { font-size: 29px; font-weight: 700; letter-spacing: 2.9px; line-height: 29px; }
-.pillar__dash { width: 42px; height: 10px; margin: 56px auto 0; background: var(--ink); }
-.pillar p { max-width: var(--pw); margin: 47px auto 0; font-size: 20px; line-height: 32px; }
-.pillar--data p { letter-spacing: 0.4px; line-height: 30px; }
-
-.about-cta { display: grid; grid-template-columns: 1fr 1fr; height: 427px; margin-bottom: 40px; }
-.about-cta__col { display: flex; flex-direction: column; align-items: center; padding-top: 125px; text-align: center; }
-.about-cta__col p { font-size: 35px; }
-.about-cta__col .btn { margin-top: 43px; }
 
 /* ---- brands ------------------------------------------------------------ */
 /* intro above the brand blocks, styled like the home page's "Our brands" heading */
@@ -374,26 +379,21 @@ ul { padding: 0; list-style: none; }
   .nh-careers__text { padding: 64px 20px; }
   .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
 
-  /* about */
-  .about-hero { aspect-ratio: auto; height: calc(200 * var(--u)); }
+  /* about (fluid px, not --u): everything stacks on a 20px gutter */
+  .ab-hero { aspect-ratio: 16 / 9; max-height: none; }
+  .ab-hero img { object-position: 55% 60%; }
+  .ab-statement { grid-template-columns: 1fr; gap: 20px; padding: 56px 20px; }
+  .ab-statement p { font-size: 19px; }
+  .ab-pillars { grid-template-columns: 1fr; gap: 0; padding: 32px 20px 56px; }
+  .ab-pillar { padding: 24px 0; border-top-color: rgba(40, 40, 40, .2); }
+  .ab-pillar:first-child { border-top: 0; }
+  .ab-cta { grid-template-columns: 1fr; gap: 16px; padding: 56px 20px; }
+  .ab-cta__tile { min-height: 0; padding: 32px 24px; }
+  .ab-cta__tile p { font-size: 24px; }
+
+  /* shared with the Careers page */
   .statement :is(h1, h2) { font-size: calc(16 * var(--u)); letter-spacing: calc(0.8 * var(--u)); }
   .statement p { padding: 0; font-size: calc(11 * var(--u)); line-height: calc(14.3 * var(--u)); }
-  .statement--dark { height: calc(199 * var(--u)); padding-top: calc(43 * var(--u)); }
-  .statement--dark p { max-width: calc(232 * var(--u)); margin-top: calc(9 * var(--u)); }
-  .statement--light { height: calc(196 * var(--u)); padding-top: calc(49 * var(--u)); }
-  .statement--light p { max-width: calc(238 * var(--u)); margin-top: calc(24 * var(--u)); }
-
-  .pillars { display: block; border: 0; }
-  .pillar { height: auto; padding: calc(60 * var(--u)) calc(20 * var(--u)) calc(60 * var(--u)); }
-  .pillar h3 { font-size: calc(16 * var(--u)); letter-spacing: calc(1.6 * var(--u)); line-height: calc(16 * var(--u)); }
-  .pillar__dash { width: calc(42 * var(--u)); height: calc(10 * var(--u)); margin-top: calc(30 * var(--u)); }
-  .pillar p { max-width: calc(var(--mpw) * var(--u)); margin-top: calc(25 * var(--u)); font-size: calc(12 * var(--u)); line-height: calc(19.2 * var(--u)); }
-  .pillar--data p { letter-spacing: calc(0.24 * var(--u)); line-height: calc(18 * var(--u)); }
-
-  .about-cta { display: flex; flex-direction: column; gap: calc(45 * var(--u)); height: auto; margin: 0; padding: calc(52 * var(--u)) 0 calc(100 * var(--u)); }
-  .about-cta__col { padding: 0; }
-  .about-cta__col p { font-size: calc(12 * var(--u)); }
-  .about-cta__col .btn { margin-top: calc(7 * var(--u)); }
 
   /* brands: text on white with the photo hanging over the grey band below */
   .brands-intro { padding: 40px 20px 32px; }
