@@ -205,8 +205,12 @@ ul { padding: 0; list-style: none; }
    the three pillars as hairline columns, and two closing tiles in the NOBL and flo colours.
    All sizes are fluid px on the shared --gutter column. */
 .page-about :is(h1, h2, h3, p) { text-wrap: pretty; }
-.ab-hero { width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: #eceef1; }   /* the photo's own ratio; the cap keeps the page heading on a laptop's first screen */
-.ab-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+/* hero: the nysonian.com home banner, NOBL luggage left and flo activewear right, edge to edge; the cap keeps
+   the page heading on a laptop's first screen */
+.ab-hero { display: grid; grid-template-columns: 1fr 1fr; width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: #eceef1; }
+.ab-hero img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+.ab-hero__nobl { object-position: 45% 70%; }
+.ab-hero__flo { object-position: 50% 20%; }
 
 .ab-statement { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 112px); align-items: start; padding: clamp(72px, 8vw, 120px) var(--gutter); }
 .ab-statement :is(h1, h2) { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
@@ -380,8 +384,7 @@ ul { padding: 0; list-style: none; }
   .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
 
   /* about (fluid px, not --u): everything stacks on a 20px gutter */
-  .ab-hero { aspect-ratio: 16 / 9; max-height: none; }
-  .ab-hero img { object-position: 55% 60%; }
+  .ab-hero { aspect-ratio: 2 / 1; max-height: none; }
   .ab-statement { grid-template-columns: 1fr; gap: 20px; padding: 56px 20px; }
   .ab-statement p { font-size: 19px; }
   .ab-pillars { grid-template-columns: 1fr; gap: 0; padding: 32px 20px 56px; }
@@ -438,6 +441,13 @@ ul { padding: 0; list-style: none; }
   .careers-card__text p { max-width: calc(192 * var(--u)); margin-top: calc(var(--mgap) * var(--u)); font-size: calc(14 * var(--u)); line-height: calc(19.6 * var(--u)); }
   .careers-card .btn { margin-top: calc(var(--mbgap) * var(--u)); }
   .careers-card__img { height: calc(var(--mimg-h) * var(--u)); }
+}
+
+/* phones: the About hero photos stack, each full width, so neither is squeezed into a narrow half */
+@media (max-width: 599px) {
+  .ab-hero { grid-template-columns: 1fr; aspect-ratio: auto; }
+  .ab-hero img { height: auto; aspect-ratio: 16 / 10; }
+  .ab-hero__nobl { object-position: 50% 70%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
