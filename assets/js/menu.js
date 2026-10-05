@@ -21,7 +21,7 @@
     }
   });
   // leaving the mobile layout (rotate / resize) with the menu open
-  matchMedia("(min-width: 1000px)").addEventListener("change", (event) => {
+  matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
     if (event.matches) setOpen(false);
   });
 })();

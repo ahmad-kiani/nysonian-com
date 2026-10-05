@@ -1,7 +1,9 @@
-/* Nysonian - replica of the Wix site (nysonian.com).
-   Desktop values are measured from the live site at 1440px wide.
-   Below 1000px the Wix mobile layout is used. Wix draws that layout at 320px and scales it to the screen,
-   so mobile sizes are written as multiples of --u (1/320 of the viewport, capped for tablets). */
+/* Nysonian - the parent-company site.
+   One fluid system for every page and every screen, from 280px phones to 4K screens and LED walls:
+   - sizes are in rem, so the whole site scales with the root font size (stepped up on very large screens);
+   - every section lines its content up on one edge (--edge): a side padding on small screens, and the
+     centre column (--content-max) on wide ones;
+   - no fixed section heights: blocks take the height of their content. */
 
 @font-face { font-family: "Montserrat"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/montserrat-400.woff2") format("woff2"); }
 @font-face { font-family: "Montserrat"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/montserrat-400-italic.woff2") format("woff2"); }
@@ -12,325 +14,293 @@
 
 :root {
   --ink: #282828;
-  --ink-soft: #242323;
-  --btn: #282626;
+  --ink-soft: #4a4848;
   --white: #ffffff;
   --page: #fdfbf7;          /* warm off-white page background, lighter than every cream section */
-  --grey-050: #f5f5f5;
-  --grey-030: #fafafa;
   --grey-100: #e8e6e6;
-  --stone: #d2cdca;
-  --band: #e7e4e2;          /* stone at 54% over white */
-  --careers-bg: #edebeb;    /* grey-100 at 80% over white */
+  --band: #ece7df;          /* warm stone: the middle About pillar */
   --footer: #282828;
   --nobl-deep: #0e2524;     /* the home hero photo's dark-green backdrop */
   --nobl-tile: #0b3d39;     /* NOBL green: the home NOBL tile and the Brands page NOBL panel */
   --flo-beige: #eee6da;
-  --sage: #dde6dc;          /* light sage: the "Who we are" band on the Brands page */
-  --sage-line: #c7d3c6;
-  --strip: #f4f1ea;        /* the band under the home hero */
-  --paper: #faf7f3;        /* the "How we work" band on the home page */
+  --strip: #f4f1ea;         /* the band under the home hero */
+  --paper: #faf7f3;         /* the "How we work" band on the home page */
   --font: "Montserrat", Arial, sans-serif;
-  --u: 1px;
-  /* page gutter for the header, footer and home page: at least 24-64px on laptops, and the 1352px
-     content column centred on wide screens */
-  --gutter: max(clamp(24px, 4vw, 64px), calc(50% - 676px));
-  /* edge for full-width bands (header, home hero, footer): 3.7% of the width, the same margin the hero
-     photo leaves right of the luggage, so those bands look even on both sides at every width */
-  --frame: clamp(24px, 3.7vw, 96px);
+
+  /* one edge for every section: the side padding on small screens, the centred column on wide ones */
+  --pad: clamp(1rem, 5vw, 4rem);
+  --content-max: 84.5rem;   /* 1352px at the default size; grows with the root size on large screens */
+  --edge: max(var(--pad), (100% - var(--content-max)) / 2);
+
+  /* type and rhythm, shared by all pages (taken from the home page) */
+  --h2: clamp(1.75rem, 2.6vw, 2.5rem);
+  --lead: clamp(1.25rem, 1vw + .9rem, 1.75rem);
+  --body: clamp(1rem, .2vw + .95rem, 1.0625rem);
+  --sec: clamp(4rem, 8vw, 8rem);
 }
+
+/* very large screens (QHD and 4K monitors at 100%, TVs, LED walls): the whole site grows in steps, so a
+   4K screen shows the same composition as a laptop instead of a small page in an empty canvas.
+   Percentages keep the visitor's own browser font setting. */
+@media (min-width: 1920px) { html { font-size: 110%; } }
+@media (min-width: 2560px) { html { font-size: 125%; } }
+@media (min-width: 3200px) { html { font-size: 150%; } }
+@media (min-width: 3840px) { html { font-size: 200%; } }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--font); line-height: normal; overflow-x: hidden; }
-img { display: block; max-width: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+/* a column, so the footer always reaches the bottom of short pages on tall screens */
+body { display: flex; flex-direction: column; min-height: 100svh; margin: 0; background: var(--page); color: var(--ink); font-family: var(--font); line-height: normal; }
+main { flex: 1 0 auto; }
+img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
-h1, h2, h3, p, ul { margin: 0; }
-ul { padding: 0; list-style: none; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+:is(h1, h2, h3) { text-wrap: balance; }
+p { text-wrap: pretty; }
 :focus-visible { outline: 2px solid #116dff; outline-offset: 2px; }
 .cover { width: 100%; height: 100%; object-fit: cover; }
-.m-only { display: none; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.nowrap { white-space: nowrap; }
 
-.skip-link { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--white); color: var(--ink); border-radius: 24px; font-size: 13px; }
-.skip-link:focus { top: 12px; }
+.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; padding: .625rem 1rem; background: var(--white); color: var(--ink); border-radius: 1.5rem; font-size: .8125rem; }
+.skip-link:focus { top: .75rem; }
+
+/* ---- shared type ------------------------------------------------------- */
+.nh-kicker, .brands-intro__label { font-size: .75rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 
 /* ---- buttons ----------------------------------------------------------- */
-/* Square buttons take their size from inline vars: --w/--h/--fs (desktop) and --mw/--mh/--mfs (mobile, in u). */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: var(--w, 212px); height: var(--h, 40px);
-  background: var(--btn); color: var(--white);
-  font-size: var(--fs, 13px); letter-spacing: var(--ls, 0.05em); white-space: nowrap;
-  transition: background-color .2s ease;
+/* One button for the whole site: the home page pill. It grows with its label; very narrow phones let the
+   label wrap instead of pushing the button off screen. */
+.nh-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: .75rem;
+  min-height: 2.875rem; padding: .5rem 1.75rem; border-radius: 3rem;
+  font-size: .75rem; font-weight: 700; letter-spacing: .14em; line-height: 1.3; text-align: center; text-transform: uppercase; white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, transform .1s ease;
 }
-.btn:hover { background: #4a4848; }
-
-.btn-pill {
-  position: relative; display: inline-flex; align-items: center;
-  width: 197px; height: 37px; padding-left: 27px; border-radius: 50px;
-  background: var(--ink); color: var(--white); font-size: 12px; letter-spacing: 3px;
-}
-.btn-pill svg { position: absolute; left: 133px; top: 50%; width: 37px; height: 37px; transform: translateY(-50%); fill: currentColor; }
-.btn-pill:hover { background: #4a4848; }
-
-/* Like Wix, desktop content keeps its size and is anchored to the centre of the window (the 1440px
-   layout's x positions + half the extra width). Section heights never change; only backgrounds stretch.
-   max(...) keeps elements on screen where Wix lets them slide off on narrow windows. */
+.nh-pill:active { transform: scale(.97); }
+.nh-pill--light { background: var(--white); color: var(--nobl-deep); }
+.nh-pill--dark { background: var(--ink); color: var(--white); }
+.nh-link { display: inline-flex; gap: .625rem; padding-bottom: .1875rem; border-bottom: 1px solid currentColor; font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.125rem 2rem; }
 
 /* ---- header ------------------------------------------------------------ */
-/* Modelled on nobltravel.com's header: a slim bar, small tracked Montserrat 500 links right after the
-   logo, and a thin underline for hover and the current page. Replaces the Wix boxed links on every page. */
-.site-header { position: relative; z-index: 50; display: flex; align-items: center; height: 64px; padding: 0 var(--frame); border-bottom: 1px solid var(--grey-100); background: var(--white); }
-.site-header__logo { display: flex; flex: none; align-items: center; gap: 12px; }
-.site-header__logo img { width: 44px; height: 34px; }
-.site-header__logo span { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
-.site-nav { display: flex; gap: 36px; margin-left: 56px; }
-.site-nav a { position: relative; display: flex; align-items: center; height: 40px; font-size: 12px; font-weight: 500; letter-spacing: .1em; color: var(--ink); }
-.site-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
-.site-nav a:hover::after, .site-nav a[aria-current="page"]::after { transform: none; }
+/* Modelled on nobltravel.com's header: a slim bar, small tracked Montserrat 500 links right after the logo,
+   and a thin underline for hover and the current page. */
+.site-header { position: relative; z-index: 50; display: flex; align-items: center; min-height: 4rem; padding: 0 var(--edge); border-bottom: 1px solid var(--grey-100); background: var(--white); }
+.site-header__logo { display: flex; flex: none; align-items: center; gap: .75rem; min-height: 2.75rem; }
+.site-header__logo img { width: 2.75rem; height: auto; }
+.site-header__logo span { font-size: .75rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
+.site-nav { display: flex; gap: 2.25rem; margin-left: 3.5rem; }
+.site-nav a { position: relative; display: flex; align-items: center; justify-content: center; height: 2.75rem; min-width: 2.75rem; font-size: .75rem; font-weight: 500; letter-spacing: .1em; color: var(--ink); }
+.site-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: .625rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.site-nav a[aria-current="page"]::after { transform: none; }
+.site-nav .site-nav__home { display: none; }   /* the logo is the home link on wide screens; the phone menu lists it */
 .menu-toggle { display: none; }
 
 /* ---- footer ------------------------------------------------------------ */
-/* A normal flowing layout on the shared gutter, so it lines up with the header at every width. */
-.site-footer { padding: 64px var(--frame) 32px; background: var(--footer); color: var(--white); }
-.site-footer__top { display: grid; grid-template-columns: 1.6fr 1fr 1fr auto; gap: 40px; align-items: start; }
-.site-footer__logo { width: 48px; height: auto; }
-.site-footer__name { margin-top: 16px; font-size: 16px; }
-.site-footer__label { margin-bottom: 16px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #bdbdbd; }
-.site-footer__nav { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 14px; }
-.site-footer__brands { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.site-footer__nobl { width: auto; height: 30px; }
-.site-footer__flo { width: auto; height: 34px; filter: invert(1); }
-.site-footer__linkedin img { width: 36px; height: 36px; }
-.site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; margin-top: 56px; padding-top: 24px; border-top: 1px solid #444; font-size: 12px; color: #bdbdbd; }
-.site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 24px; }
-.site-footer a:hover { opacity: .75; }
+.site-footer { padding: 4rem var(--edge) 2rem; background: var(--footer); color: var(--white); }
+.site-footer__top { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 2.5rem; align-items: start; }
+.site-footer__logo { width: 3rem; }
+.site-footer__name { margin-top: 1rem; font-size: 1rem; }
+.site-footer__label { margin-bottom: 1rem; font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #bdbdbd; }
+.site-footer__nav { display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; font-size: .875rem; }
+.site-footer__brands { display: flex; flex-direction: column; align-items: flex-start; gap: 1.125rem; }
+.site-footer__nobl { width: auto; height: 1.875rem; }
+.site-footer__flo { width: auto; height: 2.125rem; filter: invert(1); }
+.site-footer__linkedin { display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; }
+.site-footer__linkedin img { width: 2.25rem; height: 2.25rem; }
+.site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2.5rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid #444; font-size: .75rem; color: #bdbdbd; }
+.site-footer__legal { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; }
 
 /* ---- home -------------------------------------------------------------- */
 /* The parent-company home page: hero, our brands, how we work, careers. Both brands get the same card;
-   NOBL leads only by order, slightly more width and the hero photo. Sizes are fluid, and --edge lines
-   content up with the header logo at every width. */
-.page-home { --edge: var(--gutter); --h2: clamp(28px, 2.6vw, 40px); --sec: clamp(72px, 8vw, 128px); }
-.page-home main img { height: auto; }   /* width/height attributes only reserve space; CSS sets the size */
+   NOBL leads only by order, slightly more width and the hero photo. */
 .page-home :is(h2, p) { text-wrap: pretty; }
-.nh-kicker { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 
-.nh-pill {
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  height: 46px; padding: 0 28px; border-radius: 50px;
-  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
-  transition: background-color .2s ease, color .2s ease;
-}
-.nh-pill--light { background: var(--white); color: var(--nobl-deep); }
-.nh-pill--light:hover { background: var(--flo-beige); }
-.nh-pill--dark { background: var(--ink); color: var(--white); }
-.nh-pill--dark:hover { background: #4a4848; }
-.nh-link { display: inline-flex; gap: 10px; padding-bottom: 3px; border-bottom: 1px solid currentColor; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.nh-link:hover { opacity: .7; }
-.nh-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
-
-/* hero: a banner in the photo's own proportions (2.474:1), like the NOBL and flo home pages, so the
-   photo always fills it edge to edge and is never stretched or cut. Below 1335px wide the 540px minimum
-   adds plain backdrop above the photo, which fades into it. In the photo the luggage spans 40%-96.3%
-   of the width, so the text column ends before 40% and the --frame edge (3.7%) mirrors the margin
-   right of the luggage. The text is centred in the space above the brand rail. */
+/* hero: a banner in the photo's own proportions (2.474:1), so the photo fills it edge to edge. Below 1335px
+   wide the 540px minimum adds plain backdrop above the photo, which fades into it; on very wide or short
+   screens the height is capped to the first screen and the photo's empty top is cut instead. In the photo
+   the luggage spans 40%-96.3% of the width, so the text column ends before 40%. */
 .nh-hero {
-  --copy-w: clamp(300px, 36vw - 40px, 500px);
-  --rail-h: clamp(56px, 4.6vw, 88px);             /* 58px on a 1266px laptop, 88px at 1920 */
-  --rail-w: min(var(--copy-w), clamp(280px, 26vw, 500px));
-  --rail-bottom: clamp(28px, 2.6vw, 56px);
+  --hero-edge: min(var(--edge), 12vw);            /* the copy keeps clear of the luggage on ultra-wide screens */
+  --copy-w: clamp(18.75rem, 36vw - 2.5rem, 31.25rem);
+  --rail-h: clamp(3.5rem, 4.6vw, 5.5rem);
+  --rail-w: min(var(--copy-w), clamp(17.5rem, 26vw, 31.25rem));
+  --rail-bottom: clamp(1.75rem, 2.6vw, 3.5rem);
   position: relative; display: flex; flex-direction: column; justify-content: center;
-  width: 100%; aspect-ratio: 2474 / 1000; min-height: 540px;   /* a set width keeps min-height from widening the box */ padding: 40px 0 calc(var(--rail-h) + var(--rail-bottom) + 32px);
+  width: 100%; aspect-ratio: 2474 / 1000; min-height: 33.75rem; max-height: min(calc(100svh - 8.5rem), 68rem);
+  padding: 2.5rem 0 calc(var(--rail-h) + var(--rail-bottom) + 2rem);
   overflow: hidden; background: var(--nobl-deep); color: var(--white);
 }
 .nh-hero__img img { position: absolute; left: 0; bottom: 0; width: 100%; max-width: none;
   -webkit-mask-image: linear-gradient(transparent, #000 14%); mask-image: linear-gradient(transparent, #000 14%); }
-.nh-hero__copy { position: relative; z-index: 1; max-width: var(--copy-w); padding-left: var(--frame); box-sizing: content-box; }
+.nh-hero__copy { position: relative; z-index: 1; max-width: var(--copy-w); padding-left: var(--hero-edge); box-sizing: content-box; }
 
 /* brand rail: the two brands as equal tiles in the bottom-left, under the text column */
-.nh-rail { position: absolute; z-index: 1; left: var(--frame); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--rail-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
-.nh-rail a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 22px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
-.nh-rail a:hover { filter: brightness(1.1); }
+.nh-rail { position: absolute; z-index: 1; left: var(--hero-edge); bottom: var(--rail-bottom); display: grid; grid-template-columns: 1fr 1fr; width: var(--rail-w); height: var(--rail-h); border: 1px solid rgba(255, 255, 255, .18); }
+.nh-rail a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-width: 0; padding: 0 1.375rem; font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; transition: filter .2s ease; }
 .nh-rail__nobl { background: var(--nobl-tile); color: var(--white); border-right: 1px solid rgba(255, 255, 255, .18); }
-.nh-rail__nobl img { width: clamp(64px, 5vw, 96px); }
+.nh-rail__nobl img { width: clamp(4rem, 5vw, 6rem); }
 .nh-rail__flo { background: var(--flo-beige); color: var(--ink); }
-.nh-rail__flo img { width: clamp(28px, 2.1vw, 40px); }
+.nh-rail__flo img { width: clamp(1.75rem, 2.1vw, 2.5rem); }
 /* narrow desktops: the tiles are too small for logo plus label, so show the logos only */
 @media (min-width: 1000px) and (max-width: 1365px) { .nh-rail a { justify-content: center; } .nh-rail span { display: none; } }
-.nh-hero h1 { margin: 0; font-size: clamp(38px, 3.2vw + 10px, 72px); font-weight: 400; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
-.nh-hero__sub { max-width: 26ch; margin-top: 22px; font-size: clamp(18px, .5vw + 11px, 22px); line-height: 1.45; }
-.nh-hero .nh-actions { margin-top: 36px; }
+.nh-hero h1 { margin: 0; font-size: clamp(2.375rem, 3.2vw + .625rem, 4.5rem); font-weight: 400; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+.nh-hero__sub { max-width: 26ch; margin-top: 1.375rem; font-size: clamp(1.125rem, .5vw + .7rem, 1.375rem); line-height: 1.45; }
+.nh-hero .nh-actions { margin-top: 2.25rem; }
 /* on narrow desktops the luggage starts at about 40% of the width, so the two actions stack */
 @media (min-width: 1000px) and (max-width: 1199px) { .nh-hero .nh-actions { flex-direction: column; align-items: flex-start; } }
 
 /* strip under the hero: a clear boundary, like the trust strips on the NOBL and flo home pages */
-.nh-strip { padding: 22px var(--frame); background: var(--strip); border-bottom: 1px solid #e6e0d4; }
-.nh-strip ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px clamp(40px, 8vw, 128px); }
-.nh-strip li { display: flex; align-items: center; gap: 14px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-.nh-strip svg { flex: none; width: 28px; height: 28px; fill: none; stroke: var(--nobl-deep); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nh-strip { padding: 1.375rem var(--edge); background: var(--strip); border-bottom: 1px solid #e6e0d4; }
+.nh-strip ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem clamp(2.5rem, 8vw, 8rem); }
+.nh-strip li { display: flex; align-items: center; gap: .875rem; font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.nh-strip svg { flex: none; width: 1.75rem; height: 1.75rem; fill: none; stroke: var(--nobl-deep); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 /* our brands: two cards with the same structure */
 .nh-brands { padding: var(--sec) var(--edge); background: var(--page); }
-.nh-brands h2, .nh-how h2 { max-width: 760px; margin-top: 18px; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.nh-brands h2, .nh-how h2 { max-width: 47.5rem; margin-top: 1.125rem; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
 /* equal square cards: a fixed shape keeps the whole product in frame at every width */
-.nh-brands__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 48px); margin-top: 56px; }
+.nh-brands__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); margin-top: 3.5rem; }
 .nh-brand { display: flex; flex-direction: column; align-items: flex-start; }
 .nh-brand .nh-brand__img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-.nh-brand .nh-brand__logo { width: auto; height: 36px; margin-top: 28px; }
+.nh-brand .nh-brand__logo { width: auto; height: 2.25rem; margin-top: 1.75rem; }
 .nh-brand__logo--nobl { filter: brightness(0); }   /* the white NOBL tag, inked like NOBL's own header logo */
-.nh-brand__desc { max-width: 40ch; margin-top: 18px; font-size: 16px; line-height: 1.55; }
-.nh-brand__meta { margin-top: 14px; font-size: 11px; font-weight: 700; letter-spacing: .08em; line-height: 1.6; text-transform: uppercase; color: #6b6b6b; }
-.nh-brand__link { margin-top: 22px; padding-bottom: 2px; border-bottom: 1px solid currentColor; font-size: 13px; font-weight: 700; letter-spacing: .06em; }
-.nh-brand__link:hover { opacity: .7; }
+.nh-brand__desc { max-width: 40ch; margin-top: 1.125rem; font-size: var(--body); line-height: 1.55; }
+.nh-brand__meta { margin: .875rem 0 1.375rem; font-size: .75rem; font-weight: 700; letter-spacing: .08em; line-height: 1.6; text-transform: uppercase; color: #5c5c5c; }
+.nh-brand__link { margin-top: auto;   /* both cards' links on one line */ padding-bottom: .125rem; border-bottom: 1px solid currentColor; font-size: .8125rem; font-weight: 700; letter-spacing: .06em; }
 
 /* how we work: the About page's three pillars */
 .nh-how { padding: var(--sec) var(--edge); background: var(--paper); }
-.nh-how__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 64px); margin: 56px 0; }
-.nh-how__grid > div { padding-top: 24px; border-top: 1px solid var(--ink); }
-.nh-how h3 { font-size: 13px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
-.nh-how__grid p { margin-top: 16px; font-size: 16px; line-height: 1.6; }
+.nh-how__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(2rem, 4vw, 4rem); margin: 3.5rem 0; }
+.nh-how__grid > div { padding-top: 1.5rem; border-top: 1px solid var(--ink); }
+.nh-how h3 { font-size: .8125rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.nh-how__grid p { margin-top: 1rem; font-size: var(--body); line-height: 1.6; }
 
-/* careers */
-.nh-careers { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; background: var(--page); }
-/* the column is half the page, so 100% - 676px here equals the page's 50% - 676px edge */
-.nh-careers__text { align-self: center; padding: 80px clamp(32px, 5vw, 80px) 80px max(clamp(24px, 4vw, 64px), calc(100% - 676px)); }
+/* careers: text on the page column, photo to the right edge */
+.nh-careers { display: grid; grid-template-columns: 1fr 1fr; min-height: 35rem; background: var(--page); }
+/* the column is half the page, so 100% - content-max/2 here equals the page's (100% - content-max)/2 edge */
+.nh-careers__text { align-self: center; padding: 5rem clamp(2rem, 5vw, 5rem) 5rem max(var(--pad), 100% - var(--content-max) / 2); }
 .nh-careers__text > * { max-width: 34rem; }
-.nh-careers__lead { margin-top: 22px; font-size: calc(var(--h2) * .8); line-height: 1.35; }
-.nh-careers .nh-pill { margin-top: 34px; }
-.nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 50% 40%; }   /* height 0: the square photo fills the row without making it taller */
+.nh-careers__lead { margin-top: 1.375rem; font-size: calc(var(--h2) * .8); line-height: 1.35; }
+.nh-careers .nh-pill { margin-top: 2.125rem; }
+.nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 50% 30%; }   /* height 0: the square photo fills the row without making it taller */
 
 /* ---- about ------------------------------------------------------------- */
-/* hero: the nysonian.com home banner, NOBL luggage left and flo activewear right, edge to edge; the cap keeps
-   the page heading on a laptop's first screen */
-.about-hero { display: grid; grid-template-columns: 1fr 1fr; width: 100%; aspect-ratio: 2200 / 921; max-height: calc(100svh - 240px); overflow: hidden; background: #eceef1; }
+/* hero: NOBL luggage left and flo activewear right, edge to edge; the cap keeps the mission on a laptop's
+   first screen */
+.about-hero { display: grid; grid-template-columns: 1fr 1fr; width: 100%; aspect-ratio: 2200 / 921; max-height: max(15rem, min(calc(100svh - 15rem), 60rem)); overflow: hidden; background: #eceef1; }
 .about-hero img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
 .about-hero__nobl { object-position: 50% 60%; }   /* square file: the studio backdrop is extended above and below the cases, so the whole group fits the width */
 .about-hero__flo { object-position: 50% 20%; }
 
-.statement { text-align: center; }
-.statement :is(h1, h2) { font-size: 30px; font-weight: 700; letter-spacing: 1.5px; }
-.statement p { max-width: 860px; margin: 0 auto; padding: 0 24px; font-size: 28px; line-height: 36.4px; }
-.statement--dark { height: 483px; padding-top: 127px; background: var(--ink); color: var(--white); }
-.statement--dark :is(h1, h2) { color: #fffffe; }
-.statement--dark p { margin-top: 53px; }
-.statement--light { height: 445px; padding-top: 124px; }
-.statement--light p { margin-top: 49px; }
+/* statements (About and Careers): a heading and one large line of copy, centred on a band */
+.statement { padding: var(--sec) var(--edge); text-align: center; }
+.statement :is(h1, h2) { font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.statement p { max-width: 46ch; margin: 1.25rem auto 0; font-size: var(--lead); line-height: 1.45; text-wrap: balance; }
+.statement--dark { background: var(--ink); color: var(--white); }
+.statement--light { background: var(--page); }
+.statement--grey { background: var(--paper); }
 
-.pillars { display: grid; grid-template-columns: 489fr 475fr 476fr; border-bottom: 2px solid var(--grey-100); }
-.pillar { height: 584px; padding: 106px 20px 0; background: var(--grey-050); text-align: center; }
-.pillar--stone { background: var(--stone); }
-.pillar h3 { font-size: 29px; font-weight: 700; letter-spacing: 2.9px; line-height: 29px; }
-.pillar__dash { width: 42px; height: 10px; margin: 56px auto 0; background: var(--ink); }
-.pillar p { max-width: var(--pw); margin: 47px auto 0; font-size: 20px; line-height: 32px; }
-.pillar--data p { letter-spacing: 0.4px; line-height: 30px; }
+/* pillars: three tiles on the page column, side by side from tablet width */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 var(--edge) var(--sec); }
+.pillar { padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 3vw, 3rem); background: var(--strip); text-align: center; }
+.pillar--stone { background: var(--band); }
+.pillar h3 { font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.pillar h3 span { display: block; margin-bottom: .75rem; font-size: .75rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.pillar p { max-width: 32ch; margin: 1.5rem auto 0; font-size: var(--body); line-height: 1.6; }
 
-.about-cta { display: grid; grid-template-columns: 1fr 1fr; height: 427px; margin-bottom: 40px; }
-.about-cta__col { display: flex; flex-direction: column; align-items: center; padding-top: 125px; text-align: center; }
-.about-cta__col p { font-size: 35px; }
-.about-cta__col .btn { margin-top: 43px; }
+.about-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem var(--pad); padding: 0 var(--edge) var(--sec); }
+.about-cta__col { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.about-cta__col p { max-width: 24ch; font-size: var(--lead); line-height: 1.35; text-wrap: balance; }
+.about-cta__col .nh-pill { margin-top: 1.75rem; }
 
 /* ---- brands ------------------------------------------------------------ */
 /* intro above the brand blocks, styled like the home page's "Our brands" heading */
-.brands-intro { padding: 72px clamp(60px, 5.5vw, 80px) 0; }
-.brands-intro__label { font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
-.brands-intro h1 { margin-top: 18px; font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; }
-.brands-intro__lead { max-width: 640px; margin-top: 14px; font-size: 17px; line-height: 1.6; }
+.brands-intro { padding: clamp(2.5rem, 5vw, 4.5rem) var(--edge) 0; }
+.brands-intro h1 { margin-top: 1.125rem; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.brands-intro__lead { max-width: 40rem; margin-top: .875rem; font-size: var(--body); line-height: 1.6; }
 
-.brand-feature { padding: 73px clamp(60px, 5.5vw, 80px) 74px; background: var(--page); }
-.brand-feature + .brand-feature { padding-top: 0; }
-@media (min-width: 1000px) { .brands-intro + .brand-feature { padding-top: 40px; } }
-/* Brands page column: content stops growing at 1282px (the 1440px layout) and centres, so the square
-   flo photo fills its half of the block without cropping. Intro, blocks and the "who" band share it. */
-.brands-intro, .brand-feature, .brands-who { padding-inline: max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); }
-
-/* "Who we are" band at the end of the Brands page, on the home hero green */
-.brands-who { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(48px, 7vw, 120px); align-items: start; padding: 88px max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); background: var(--paper); color: var(--ink); }   /* same as the home "How we work" band */
-.brands-who h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
-.brands-who__lead { max-width: 640px; margin-top: 16px; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
-.brands-who__points { margin: 0; padding: 0; list-style: none; }
-.brands-who__points li { display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; padding: 28px 0; }
-.brands-who__points li:first-child { padding-top: 6px; }
-.brands-who__points li:last-child { padding-bottom: 0; }
-.brands-who__points li + li { border-top: 1px solid rgba(40, 40, 40, .15); }
-.brands-who__num { grid-row: span 2; color: var(--nobl-tile); font-size: 22px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; }
-.brands-who__points h3 { font-size: 13px; font-weight: 700; letter-spacing: .16em; line-height: 1.7; text-transform: uppercase; }
-.brands-who__points p { margin-top: 8px; font-size: 16px; line-height: 1.6; text-wrap: balance; }   /* balance: no single word left alone on the last line */
-.brands-who__link { display: inline-flex; gap: 10px; margin-top: 32px; padding-bottom: 3px; border-bottom: 1px solid currentColor; color: var(--nobl-tile); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.brands-who__link:hover { opacity: .75; }   /* intro line to NOBL photo: 73px to 40px */   /* halves the gap between the two brands (147px to 74px) */
-.brand-feature__card { display: grid; grid-template-columns: 641fr 639fr; height: 646px; background: var(--white); }
+/* brand blocks: a coloured panel with the photo on one half and the text on the other, alternating sides */
+.brand-feature { padding: clamp(2rem, 4vw, 3rem) var(--edge) 0; }
+.brand-feature--flo { padding-bottom: var(--sec); }
+.brand-feature__card { display: grid; grid-template-columns: 641fr 639fr; min-height: clamp(30rem, 45vw, 40rem); background: var(--panel, var(--white)); }
 .brand-feature__img { display: block; overflow: hidden; }
 .brand-feature__img img { width: 100%; height: 100%; object-fit: cover; }
-/* a 490px text column centred in the white panel */
-.brand-feature__text { display: flex; flex-direction: column; justify-content: center; align-self: center; width: min(490px, 100% - 40px); margin: 0 auto; }
-.brand-feature__text h2 { font-size: 20px; font-weight: 700; }
-.brand-feature__tag { margin-top: 23px; font-size: 15px; font-weight: 700; font-style: italic; line-height: 21px; }
-.brand-feature__desc { max-width: var(--dw, 462px); font-size: 15px; line-height: 21px; }
-.brand-feature .btn-pill { margin-top: 32px; }
-/* brand panel colours, matching the home page's NOBL and flo tiles */
-.brand-feature__card { background: var(--panel, var(--white)); }
+.brand-feature__text { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: min(30.625rem, 100% - 2 * clamp(1.5rem, 4vw, 3.5rem)); margin: 0 auto; padding: 3rem 0; }
+.brand-feature__text h2 { font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.brand-feature__tag { max-width: 36ch; margin-top: 1.25rem; font-size: var(--body); font-weight: 700; font-style: italic; line-height: 1.5; }
+.brand-feature__desc { max-width: 36ch; margin-top: .375rem; font-size: var(--body); line-height: 1.6; }
+.brand-feature .nh-pill { margin-top: 2rem; }
 .brand-feature--nobl { --panel: var(--nobl-tile); }
 .brand-feature--nobl .brand-feature__text { color: var(--white); }
-.brand-feature--nobl .btn-pill { background: var(--white); color: var(--nobl-tile); }
-.brand-feature--nobl .btn-pill:hover { background: var(--flo-beige); }
 .brand-feature--flo { --panel: var(--flo-beige); }
-/* flo alternates: text panel on the left, photo on the right */
 .brand-feature--flo .brand-feature__card { grid-template-columns: 639fr 641fr; }
 .brand-feature--flo .brand-feature__img { order: 2; }
 
+/* "Who we are" band at the end of the Brands page, the same paper band as the home "How we work" */
+.brands-who { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(3rem, 7vw, 7.5rem); align-items: start; padding: var(--sec) var(--edge); background: var(--paper); color: var(--ink); }
+.brands-who h2 { font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.brands-who__lead { max-width: 40rem; margin-top: 1rem; font-size: var(--body); line-height: 1.6; }
+.brands-who__points li { display: grid; grid-template-columns: 3.5rem 1fr; column-gap: 1rem; padding: 1.75rem 0; }
+.brands-who__points li:first-child { padding-top: .375rem; }
+.brands-who__points li:last-child { padding-bottom: 0; }
+.brands-who__points li + li { border-top: 1px solid rgba(40, 40, 40, .15); }
+.brands-who__num { grid-row: span 2; color: var(--nobl-tile); font-size: 1.375rem; font-weight: 700; line-height: 1.1; letter-spacing: .04em; }
+.brands-who__points h3 { font-size: .8125rem; font-weight: 700; letter-spacing: .16em; line-height: 1.7; text-transform: uppercase; }
+.brands-who__points p { margin-top: .5rem; font-size: var(--body); line-height: 1.6; }
+.brands-who__link { display: inline-flex; gap: .625rem; margin-top: 2rem; padding-bottom: .1875rem; border-bottom: 1px solid currentColor; color: var(--nobl-tile); font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
 /* ---- team -------------------------------------------------------------- */
-.team { padding: 48px 0 59px; background: var(--grey-050); }
-.team h1 { text-align: center; font-size: 36px; font-weight: 700; color: #2a2a2a; }
-.team__dash { width: 32px; height: 3px; margin: 14px auto 0; background: var(--ink); }
-.team__grid { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 980px; margin: 47px auto 0; padding-bottom: 15px; background: var(--grey-030); }
-.member { display: flex; flex-direction: column; align-items: center; height: 437px; padding-top: 44px; text-align: center; }
-.member__photo { width: 216px; height: 216px; border-radius: 50%; object-fit: cover; background: var(--white); }
-.member__name { margin-top: 26px; font-size: 18px; font-weight: 700; color: #0f0f0f; }
-.member__linkedin { margin-top: 8px; }
-.member__linkedin img { width: 42px; height: 42px; }
-.member__linkedin:hover { opacity: .7; }
-.member__title { margin-top: 20px; font-size: 14px; line-height: 18.2px; color: #000; }
+/* a centred, wrapping row of cards: 1 per row on phones, 2 on tablets, 3-4 on desktops; the last row is
+   centred, so no one is left alone at the edge */
+.team { padding: var(--sec) var(--edge); text-align: center; }
+.team h1 { margin-top: 1.125rem; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
+.team__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem 1.5rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.member { display: flex; flex: 0 1 clamp(13rem, 23%, 18rem); flex-direction: column; align-items: center; }
+.member__photo { width: min(13.5rem, 100%); aspect-ratio: 1; border-radius: 50%; object-fit: cover; background: var(--grey-100); }
+.member__name { margin-top: 1.5rem; font-size: 1.125rem; font-weight: 700; color: var(--ink); }
+.member__linkedin { order: 1; display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; margin-top: .25rem; }
+.member__linkedin img { width: 2rem; height: 2rem; filter: brightness(.6); }   /* the grey icon, darkened to 3:1 on the page */
+.member__title { max-width: 22ch; margin-top: .25rem; font-size: .9375rem; line-height: 1.45; color: var(--ink-soft); }
 
 /* ---- careers ----------------------------------------------------------- */
-/* Same layout as the original page (photo band, mission band, two white cards with a photo on the right),
-   with fluid sizes: the photo fills the band edge to edge, the cards hug their text, and the bands use the
-   warm site colours instead of cool grey. */
-.careers-hero { height: clamp(300px, 29vw, 520px); overflow: hidden; background: var(--ink); }
-.careers-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+/* photo band, mission band, two white cards with a photo on the right */
+.careers-hero { width: 100%; aspect-ratio: 3 / 1; min-height: 18.75rem; max-height: 70svh; overflow: hidden; background: var(--ink); }
+.careers-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 
-.statement--grey { padding: clamp(72px, 7vw, 104px) 0; background: var(--paper); }
-.statement--grey p { max-width: 860px; margin-top: 29px; text-wrap: balance; }
-
-.careers-cards { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 56px); padding: clamp(48px, 5vw, 80px) max(clamp(24px, 4vw, 60px), (100% - 1282px) / 2); background: var(--strip); }
-.careers-card { display: grid; grid-template-columns: 7fr 5fr; min-height: clamp(460px, 40vw, 600px); background: var(--white); }
-.careers-card__text { align-self: center; max-width: calc(30rem + 2 * clamp(40px, 6vw, 112px)); padding: 56px clamp(40px, 6vw, 112px); }
-.careers-card__text h2 { font-size: clamp(24px, 1.2vw + 10px, 28px); font-weight: 700; font-style: italic; line-height: 1.25; text-wrap: balance; }
-.careers-card__text p { margin-top: 20px; font-size: clamp(18px, .4vw + 13px, 20px); line-height: 1.55; text-wrap: pretty; }
-.careers-card .careers-card__btn { width: 176px; height: 48px; margin-top: 32px; font-size: 14px; }
+.careers-cards { display: flex; flex-direction: column; gap: clamp(1.5rem, 4vw, 3.5rem); padding: clamp(2rem, 5vw, 5rem) var(--edge); background: var(--strip); }
+.careers-card { display: grid; grid-template-columns: 7fr 5fr; min-height: clamp(26rem, 36vw, 37.5rem); background: var(--white); }
+.careers-card__text { align-self: center; padding: 3.5rem clamp(2rem, 6vw, 7rem); }
+.careers-card__text > * { max-width: 30rem; }
+.careers-card__text h2 { font-size: calc(var(--h2) * .8); font-weight: 400; line-height: 1.25; }
+.careers-card__text p { margin-top: 1.25rem; font-size: clamp(1.0625rem, .4vw + .8rem, 1.25rem); line-height: 1.55; }
+.careers-card .nh-pill { margin-top: 2rem; }
 .careers-card__img { overflow: hidden; background: var(--grey-100); }
 .careers-card__img img { object-position: 50% 50%; }
-.careers-card--people .careers-card__img img { object-position: 62% 50%; }
+.careers-card--people .careers-card__img img { object-position: 60% 35%; }
+
+/* ---- hover: only on devices that really hover, so taps never leave a stuck hover state -------- */
+@media (hover: hover) {
+  .site-nav a:hover::after { transform: none; }
+  .site-footer a:hover, .nh-link:hover, .nh-brand__link:hover, .brands-who__link:hover, .member__linkedin:hover { opacity: .7; }
+  .nh-pill--light:hover { background: var(--flo-beige); }
+  .nh-pill--dark:hover { background: #4a4848; }
+  .nh-rail a:hover { filter: brightness(1.1); }
+}
 
 /* ======================================================================== */
-/* Mobile: the Wix mobile layout (designed at 320px wide, scaled with --u)  */
+/* Tablets and phones                                                       */
 /* ======================================================================== */
-@media (max-width: 999px) {
-  :root { --u: min(calc(100vw / 320), 1.6px); }
-  .d-only { display: none; }
-  .m-only { display: revert; }
 
-  .btn { width: calc(var(--mw) * var(--u)); height: calc(var(--mh) * var(--u)); font-size: calc(var(--mfs, 11) * var(--u)); }
-  .btn-pill { width: calc(142 * var(--u)); height: calc(23 * var(--u)); padding-left: calc(7 * var(--u)); font-size: calc(10 * var(--u)); letter-spacing: calc(2.5 * var(--u)); }
-  .btn-pill svg { left: calc(98 * var(--u)); width: calc(37 * var(--u)); height: calc(37 * var(--u)); }
-
-  /* header + menu */
-  /* header + menu: fixed px like NOBL's phone header (menu left, logo centred), not scaled with --u */
-  .site-header { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; height: 56px; padding: 0 8px; }
-  .site-header__logo { grid-column: 2; justify-self: center; }
-  .site-header__logo { gap: 10px; }
-  .site-header__logo img { width: 42px; height: 32px; }
+/* header: below 768px the links move into a menu under the ☰ button (menu left, logo centred, as on NOBL) */
+@media (max-width: 767px) {
+  .site-header { display: grid; grid-template-columns: 2.75rem 1fr 2.75rem; min-height: 3.5rem; padding: 0 max(0px, var(--pad) - .625rem); }
+  .site-header__logo { grid-column: 2; justify-self: center; gap: .625rem; }
+  .site-header__logo img { width: 2.625rem; }
   .menu-toggle {
-    position: relative; z-index: 60; display: block; grid-column: 1; grid-row: 1; width: 44px; height: 44px;
+    position: relative; z-index: 60; display: block; grid-column: 1; grid-row: 1; width: 2.75rem; height: 2.75rem;
     padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
   }
   .menu-toggle span { position: absolute; left: 22.5%; width: 55%; height: 1.5px; background: currentColor; transition: transform .25s ease, opacity .2s ease; }
@@ -340,146 +310,120 @@ ul { padding: 0; list-style: none; }
   .menu-open .menu-toggle span:nth-child(1) { top: 50%; transform: rotate(45deg); }
   .menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
   .menu-open .menu-toggle span:nth-child(3) { top: 50%; transform: rotate(-45deg); }
+  /* the menu opens under the header, so the logo and the close button stay in place */
   .site-nav {
-    position: fixed; inset: 0; z-index: 55; flex-direction: column; gap: 0; margin: 0; padding: 80px 0 0 28px;
-    background: var(--white); visibility: hidden; opacity: 0; transition: opacity .25s ease, visibility 0s linear .25s;
+    position: fixed; inset: 3.5rem 0 0; z-index: 55; flex-direction: column; gap: 0; margin: 0;
+    padding: 1.5rem var(--pad) calc(1.5rem + env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain;
+    border-top: 1px solid var(--grey-100); background: var(--white); visibility: hidden; opacity: 0; transition: opacity .25s ease, visibility 0s linear .25s;
   }
   .menu-open .site-nav { visibility: visible; opacity: 1; transition: opacity .25s ease; }
   .menu-open { overflow: hidden; }
-  .site-nav a { align-self: flex-start; height: 52px; font-size: 20px; letter-spacing: .04em; }
-  .site-nav a::after { bottom: 10px; }
+  .site-nav a, .site-nav .site-nav__home { display: flex; align-self: flex-start; height: 3.25rem; font-size: 1.25rem; letter-spacing: .04em; }
+  .site-nav a::after { bottom: .625rem; }
+}
 
-  /* footer: two columns (company links, brands), then LinkedIn and the legal lines */
-  .site-footer { padding: 48px 20px 28px; }
-  .site-footer__top { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
-  .site-footer__brand, .site-footer__linkedin { grid-column: 1 / -1; }
-  .site-footer__bottom { flex-direction: column; align-items: flex-start; margin-top: 40px; }
-  .site-footer__legal { gap: 8px 18px; }
-
-  /* home (fluid px, not --u): hero text, then the luggage photo */
-  .nh-hero { justify-content: flex-start; height: auto; aspect-ratio: auto; min-height: 0; padding: 0; }
-  .nh-hero__img { order: 1; margin-top: 12px; }
+@media (max-width: 999px) {
+  /* home: hero text, then the luggage photo */
+  .nh-hero { justify-content: flex-start; height: auto; aspect-ratio: auto; min-height: 0; max-height: none; padding: 0; }
+  .nh-hero__img { order: 1; margin-top: .75rem; }
   .nh-hero__img img { position: static; width: 100%; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 80%, transparent); }
-  .nh-hero__copy { max-width: none; padding: 40px 20px 0; }
-  .nh-hero h1 { font-size: clamp(34px, 9vw, 40px); }
-  .nh-hero__sub { margin-top: 16px; font-size: 17px; }
-  .nh-hero .nh-actions { margin-top: 28px; }
-  .nh-rail { position: relative; order: 2; left: auto; bottom: auto; width: auto; height: 72px; margin: 0 20px 28px; }
-  .nh-rail a { justify-content: center; gap: clamp(12px, 4vw, 28px); padding: 0 12px; font-size: 11px; letter-spacing: .14em; }   /* logo and label together, not pushed to opposite ends */
-  .nh-rail__nobl img { width: 72px; }
-  .nh-rail__flo img { width: 32px; }
-  .nh-strip { padding: 20px 12px; }
-  .nh-strip ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .nh-strip li { flex-direction: column; gap: 8px; text-align: center; font-size: 11px; letter-spacing: .08em; }
+  .nh-hero__copy { max-width: none; padding: 2.5rem var(--pad) 0; }
+  .nh-hero h1 { font-size: clamp(2rem, 9vw, 2.5rem); }
+  .nh-hero__sub { margin-top: 1rem; font-size: 1.0625rem; }
+  .nh-hero .nh-actions { margin-top: 1.75rem; }
+  .nh-rail { position: relative; order: 2; left: auto; bottom: auto; width: auto; height: 4.5rem; margin: 0 var(--pad) 1.75rem; }
+  .nh-rail a { justify-content: center; gap: clamp(.5rem, 3vw, 1.75rem); padding: 0 .5rem; letter-spacing: .14em; }   /* logo and label together, not pushed to opposite ends */
+  .nh-rail__nobl img { width: clamp(3.5rem, 18vw, 4.5rem); }
+  .nh-rail__flo img { width: 2rem; }
+  .nh-strip { padding: 1.25rem var(--pad); }
+  .nh-strip ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+  .nh-strip li { flex-direction: column; gap: .5rem; text-align: center; letter-spacing: .08em; line-height: 1.35; }
 
-  .nh-brands { padding: 64px 20px; }
-  .nh-brands__grid { grid-template-columns: 1fr; gap: 56px; margin-top: 40px; }
-  .nh-brand__meta { font-size: 12px; color: #5c5c5c; }
-
-  .nh-how { padding: 64px 20px; }
-  .nh-how__grid { grid-template-columns: 1fr; gap: 32px; margin: 40px 0; }
+  .nh-brands__grid { grid-template-columns: 1fr; gap: 3.5rem; margin-top: 2.5rem; }
+  .nh-how__grid { grid-template-columns: 1fr; gap: 2rem; margin: 2.5rem 0; }
 
   .nh-careers { grid-template-columns: 1fr; min-height: 0; }
-  .nh-careers__text { padding: 64px 20px; }
+  .nh-careers__text { padding: 4rem var(--pad); }
   .nh-careers .nh-careers__img { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
 
   /* touch: the text links are about 20px tall, so give each an invisible 44px tap area (no visual change) */
-  :is(.nh-link, .nh-brand__link, .site-footer__nav a, .site-footer__brands a) { position: relative; }
-  :is(.nh-link, .nh-brand__link)::after { content: ""; position: absolute; inset: -12px -6px; }
-  :is(.site-footer__nav a, .site-footer__brands a)::after { content: ""; position: absolute; inset: -6px -8px; }
+  :is(.nh-link, .nh-brand__link, .brands-who__link, .site-footer__brands a) { position: relative; }
+  :is(.nh-link, .nh-brand__link, .brands-who__link)::after { content: ""; position: absolute; inset: -.75rem -.375rem; }
+  .site-footer__nav { gap: 0; }
+  .site-footer__nav a { display: flex; align-items: center; min-width: 2.75rem; min-height: 2.75rem; }
+  .site-footer__brands a::after { content: ""; position: absolute; inset: -.5rem; }
 
   /* about */
   .about-hero { aspect-ratio: 2 / 1; max-height: none; }
-  .statement :is(h1, h2) { font-size: calc(16 * var(--u)); letter-spacing: calc(0.8 * var(--u)); }
-  .statement p { padding: 0; font-size: calc(11 * var(--u)); line-height: calc(14.3 * var(--u)); }
-  .statement--dark { height: calc(199 * var(--u)); padding-top: calc(43 * var(--u)); }
-  .statement--dark p { max-width: calc(232 * var(--u)); margin-top: calc(9 * var(--u)); }
-  .statement--light { height: calc(196 * var(--u)); padding-top: calc(49 * var(--u)); }
-  .statement--light p { max-width: calc(238 * var(--u)); margin-top: calc(24 * var(--u)); }
 
-  .pillars { display: block; border: 0; }
-  .pillar { height: auto; padding: calc(60 * var(--u)) calc(20 * var(--u)) calc(60 * var(--u)); }
-  .pillar h3 { font-size: calc(16 * var(--u)); letter-spacing: calc(1.6 * var(--u)); line-height: calc(16 * var(--u)); }
-  .pillar__dash { width: calc(42 * var(--u)); height: calc(10 * var(--u)); margin-top: calc(30 * var(--u)); }
-  .pillar p { max-width: calc(var(--mpw) * var(--u)); margin-top: calc(25 * var(--u)); font-size: calc(12 * var(--u)); line-height: calc(19.2 * var(--u)); }
-  .pillar--data p { letter-spacing: calc(0.24 * var(--u)); line-height: calc(18 * var(--u)); }
+  /* brands: the photo across the top of the coloured panel, the text under it */
+  .brand-feature__card { grid-template-columns: 1fr 1fr; min-height: 28rem; }
+  .brands-who { grid-template-columns: 1fr; gap: 2.5rem; }
 
-  .about-cta { display: flex; flex-direction: column; gap: calc(45 * var(--u)); height: auto; margin: 0; padding: calc(52 * var(--u)) 0 calc(100 * var(--u)); }
-  .about-cta__col { padding: 0; }
-  .about-cta__col p { font-size: calc(12 * var(--u)); }
-  .about-cta__col .btn { margin-top: calc(7 * var(--u)); }
-
-  /* brands: text on white with the photo hanging over the grey band below */
-  .brands-intro { padding: 40px 20px 32px; }
-  .brands-intro h1 { margin-top: 14px; }
-  .brands-intro__lead { font-size: 16px; }
-  .brands-who { grid-template-columns: 1fr; gap: 40px; padding: 56px 20px; }
-  .brands-who__lead { font-size: 16px; }
-  .brands-who__link { margin-top: 24px; }
-  .brands-who__points li { grid-template-columns: 44px 1fr; padding: 24px 0; }
-  .brands-who__num { font-size: 18px; }
-  .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--page) 0); }
-  .brand-feature__card { display: block; height: auto; background: none; }
-  .brand-feature__img { position: absolute; left: calc(169 * var(--u)); top: calc(var(--mimg-top) * var(--u)); width: calc(var(--mimg-w) * var(--u)); height: calc(var(--mimg-h) * var(--u)); }
-  .brand-feature__text { display: block; width: auto; margin: 0; padding: calc(var(--mpt) * var(--u)) calc(16 * var(--u)) 0 calc(var(--mpl) * var(--u)); }
-  .brand-feature__text h2 { font-size: calc(16 * var(--u)); }
-  .brand-feature__tag { margin-top: calc(7 * var(--u)); font-size: calc(12 * var(--u)); line-height: calc(16.8 * var(--u)); }
-  .brand-feature__desc { max-width: calc(var(--mdw, 280) * var(--u)); font-size: calc(12 * var(--u)); line-height: calc(16.8 * var(--u)); }
-  .brand-feature .btn-pill { margin-top: calc(14 * var(--u)); }
-
-  /* team: one column */
-  .team { padding: calc(31 * var(--u)) 0 calc(50 * var(--u)); }
-  .team h1 { font-size: calc(15 * var(--u)); }
-  .team__dash { width: calc(30 * var(--u)); height: calc(3 * var(--u)); margin-top: calc(8 * var(--u)); }
-  .team__grid { grid-template-columns: 1fr; margin-top: calc(13 * var(--u)); padding: calc(30 * var(--u)) 0 calc(20 * var(--u)); }
-  .member { height: calc(352 * var(--u)); padding: 0; }
-  .member__photo { width: calc(214 * var(--u)); height: calc(214 * var(--u)); }
-  .member__name { margin-top: calc(21 * var(--u)); font-size: calc(13 * var(--u)); }
-  .member__linkedin { margin-top: calc(5 * var(--u)); }
-  .member__linkedin img { width: calc(35 * var(--u)); height: calc(35 * var(--u)); }
-  .member__title { margin-top: calc(9 * var(--u)); font-size: calc(12 * var(--u)); line-height: calc(15.6 * var(--u)); }
-
-  /* careers (fluid px, not --u): text above, photo below, centred as on the original phone layout */
-  .careers-hero { height: auto; aspect-ratio: 3 / 2; }
-  .statement--grey { padding: 56px 20px; }
-  .statement--grey :is(h1, h2) { font-size: 24px; letter-spacing: 1px; }
-  .statement--grey p { max-width: 34rem; margin-top: 20px; font-size: 17px; line-height: 1.55; }
-
-  .careers-cards { display: block; padding: 0; background: none; }
-  .careers-card { display: block; min-height: 0; }
-  .careers-card__text { display: flex; flex-direction: column; align-items: center; max-width: none; padding: 56px 20px; text-align: center; }
-  .careers-card__text h2 { font-size: 20px; }
-  .careers-card__text p { max-width: 30rem; margin-top: 16px; font-size: 17px; }
-  .careers-card .careers-card__btn { width: 200px; height: 46px; margin-top: 28px; font-size: 14px; }
-  .careers-card__img { aspect-ratio: 4 / 3; }
+  /* careers: the cards keep a photo half on tablets */
+  .careers-card { grid-template-columns: 1fr 1fr; min-height: 0; }
+  .careers-card__text { padding: 3rem clamp(1.5rem, 4vw, 3rem); }
 }
 
-/* tablets and narrow windows (600-999px): the Home sections go side by side again instead of one tall
-   column, so a brand photo is never a 780-960px square and the page is about a third shorter */
+/* tablets (600-999px): the Home sections stay side by side instead of one tall column */
 @media (min-width: 600px) and (max-width: 999px) {
-  .nh-brands { padding: 72px 32px; }
-  .nh-brands__grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .nh-brand .nh-brand__logo { height: 30px; margin-top: 22px; }
-  .nh-brand__desc { font-size: 15px; }
-  .nh-how { padding: 72px 32px; }
-  .nh-hero__copy, .nh-strip { padding-left: 32px; padding-right: 32px; }
+  .nh-brands__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .nh-brand .nh-brand__logo { height: 1.875rem; margin-top: 1.375rem; }
   .nh-hero__img { margin-top: -5vw; }   /* the photo's top is empty backdrop that fades in; overlap it with the gap under the buttons */
-  .nh-rail { margin-left: 32px; margin-right: 32px; }
 }
-@media (min-width: 760px) and (max-width: 999px) {
-  .nh-how__grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .nh-how__grid p { font-size: 15px; }
+@media (min-width: 900px) and (max-width: 999px) {
+  .nh-how__grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
 }
 @media (min-width: 700px) and (max-width: 999px) {
-  .nh-careers { grid-template-columns: 1fr 1fr; min-height: 460px; }
-  .nh-careers__text { align-self: center; padding: 56px 32px; }
+  .nh-careers { grid-template-columns: 1fr 1fr; min-height: 28.75rem; }
+  .nh-careers__text { align-self: center; padding: 3.5rem var(--pad); }
   .nh-careers .nh-careers__img { height: 0; min-height: 100%; aspect-ratio: auto; }
 }
 
-/* phones: the About hero photos stack, each full width, so neither is squeezed into a narrow half */
+/* About pillars: three across only where each tile has room for its text */
+@media (max-width: 899px) {
+  .pillars { grid-template-columns: 1fr; }
+}
+
+/* below 760px: the Careers cards stack */
+@media (max-width: 759px) {
+  .careers-cards { padding: clamp(2rem, 8vw, 4rem) var(--pad); }
+  .careers-card { display: flex; flex-direction: column; }
+  .careers-card__text { align-self: stretch; padding: 2.5rem clamp(1.25rem, 5vw, 2.5rem); }
+  .careers-card__img { order: -1; aspect-ratio: 16 / 10; }
+}
+
+/* phones */
+@media (max-width: 699px) {
+  .brand-feature__card { display: flex; flex-direction: column; min-height: 0; }
+  .brand-feature__img, .brand-feature--flo .brand-feature__img { order: -1; aspect-ratio: 4 / 3; }
+  .brand-feature__text { width: auto; margin: 0; padding: 2rem clamp(1.25rem, 5vw, 2.5rem) 2.5rem; }
+}
 @media (max-width: 599px) {
+  .site-footer { padding-top: 3rem; }
+  .site-footer__top { grid-template-columns: 1fr 1fr; gap: 2.25rem 1.5rem; }
+  .site-footer__brand, .site-footer__linkedin { grid-column: 1 / -1; }
+  .site-footer__linkedin { margin-left: -.25rem; }
+  .site-footer__bottom { flex-direction: column; align-items: flex-start; margin-top: 2.5rem; }
   .about-hero { grid-template-columns: 1fr; aspect-ratio: auto; }
   .about-hero img { height: auto; aspect-ratio: 16 / 10; }
+  .about-cta { grid-template-columns: 1fr; }
+  /* team: two people per row with smaller photos, so the page is not one long column */
+  .team__grid { gap: 2.5rem 1rem; }
+  .member { flex: 0 1 calc(50% - .5rem); }
+  .member__photo { width: min(8.5rem, 100%); }
+  .member__name { margin-top: 1rem; font-size: 1rem; }
+  .member__title { font-size: .875rem; }
+  .careers-hero { aspect-ratio: 3 / 2; min-height: 0; }
+}
+
+/* very narrow phones (under 360px): labels may wrap, the brand tiles show logos only, the strip stacks */
+@media (max-width: 359px) {
+  .brands-who__points li { grid-template-columns: 2.5rem 1fr; column-gap: .5rem; }
+  .nh-pill { white-space: normal; padding-inline: 1.25rem; }
+  .nh-rail span { display: none; }
+  .nh-strip ul { grid-template-columns: 1fr; justify-items: start; gap: .625rem; }
+  .nh-strip li { flex-direction: row; gap: .75rem; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
