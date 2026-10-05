@@ -246,7 +246,6 @@ ul { padding: 0; list-style: none; }
 
 /* "Who we are" band at the end of the Brands page, on the home hero green */
 .brands-who { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(48px, 7vw, 120px); align-items: start; padding: 88px max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); background: var(--paper); color: var(--ink); }   /* same as the home "How we work" band */
-.brands-who__label { margin-bottom: 14px; color: var(--nobl-tile); font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 .brands-who h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
 .brands-who__lead { max-width: 640px; margin-top: 16px; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
 .brands-who__points { margin: 0; padding: 0; list-style: none; }
