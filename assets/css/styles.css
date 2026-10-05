@@ -310,15 +310,6 @@ ul { padding: 0; list-style: none; }
 .careers-card__img { overflow: hidden; background: var(--grey-100); }
 .careers-card__img img { object-position: 50% 50%; }
 .careers-card--people .careers-card__img img { object-position: 62% 50%; }
-/* card 1: the real team as a 3x3 grid of headshots, with a NOBL and a flo tile among them */
-.careers-team { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 4px; margin: 0; padding: 0; list-style: none; background: var(--white); }
-.careers-team li { min-height: 0; overflow: hidden; }
-.careers-team li img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-.careers-team__brand { display: grid; place-items: center; }
-.careers-team .careers-team__brand img { width: 62%; height: auto; object-fit: contain; }
-.careers-team__brand--nobl { background: var(--nobl-tile); }
-.careers-team__brand--flo { background: var(--flo-beige); }
-.careers-team .careers-team__brand--flo img { width: 36%; }
 
 /* ======================================================================== */
 /* Mobile: the Wix mobile layout (designed at 320px wide, scaled with --u)  */
@@ -461,7 +452,6 @@ ul { padding: 0; list-style: none; }
   .careers-card__text p { max-width: 30rem; margin-top: 16px; font-size: 17px; }
   .careers-card .careers-card__btn { width: 200px; height: 46px; margin-top: 28px; font-size: 14px; }
   .careers-card__img { aspect-ratio: 4 / 3; }
-  .careers-card__img.careers-team { aspect-ratio: 1; }   /* square tiles so faces are not cropped */
 }
 
 /* tablets and narrow windows (600-999px): the Home sections go side by side again instead of one tall
