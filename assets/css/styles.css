@@ -241,14 +241,19 @@ ul { padding: 0; list-style: none; }
 .brands-intro, .brand-feature, .brands-who { padding-inline: max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); }
 
 /* "Who we are" band at the end of the Brands page, on the home hero green */
-.brands-who { padding: 88px max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); background: var(--paper); color: var(--ink); }   /* same as the home "How we work" band */
-.brands-who h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; }
-.brands-who__lead { max-width: 640px; margin-top: 16px; font-size: 17px; line-height: 1.6; }
-.brands-who__points { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 64px); margin: 56px 0 48px; }
-.brands-who__points svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.brands-who__points h3 { margin-top: 20px; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-.brands-who__points p { margin-top: 10px; font-size: 16px; line-height: 1.6; text-wrap: balance; }   /* balance: no single word left alone on the last line */
-.brands-who__link { display: inline-flex; gap: 10px; padding-bottom: 3px; border-bottom: 1px solid currentColor; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.brands-who { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(48px, 7vw, 120px); align-items: start; padding: 88px max(clamp(60px, 5.5vw, 80px), (100% - 1282px) / 2); background: var(--paper); color: var(--ink); }   /* same as the home "How we work" band */
+.brands-who__label { margin-bottom: 14px; color: var(--nobl-tile); font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.brands-who h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 400; line-height: 1.2; text-wrap: balance; }
+.brands-who__lead { max-width: 640px; margin-top: 16px; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+.brands-who__points { margin: 0; padding: 0; list-style: none; }
+.brands-who__points li { display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; padding: 28px 0; }
+.brands-who__points li:first-child { padding-top: 6px; }
+.brands-who__points li:last-child { padding-bottom: 0; }
+.brands-who__points li + li { border-top: 1px solid rgba(40, 40, 40, .15); }
+.brands-who__num { grid-row: span 2; color: var(--nobl-tile); font-size: 22px; font-weight: 700; line-height: 1.1; letter-spacing: .04em; }
+.brands-who__points h3 { font-size: 13px; font-weight: 700; letter-spacing: .16em; line-height: 1.7; text-transform: uppercase; }
+.brands-who__points p { margin-top: 8px; font-size: 16px; line-height: 1.6; text-wrap: balance; }   /* balance: no single word left alone on the last line */
+.brands-who__link { display: inline-flex; gap: 10px; margin-top: 32px; padding-bottom: 3px; border-bottom: 1px solid currentColor; color: var(--nobl-tile); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .brands-who__link:hover { opacity: .75; }   /* intro line to NOBL photo: 73px to 40px */   /* halves the gap between the two brands (147px to 74px) */
 .brand-feature__card { display: grid; grid-template-columns: 641fr 639fr; height: 646px; background: var(--white); }
 .brand-feature__img { display: block; overflow: hidden; }
@@ -395,9 +400,11 @@ ul { padding: 0; list-style: none; }
   .brands-intro { padding: 40px 20px 32px; }
   .brands-intro h1 { margin-top: 14px; }
   .brands-intro__lead { font-size: 16px; }
-  .brands-who { padding: 56px 20px; }
+  .brands-who { grid-template-columns: 1fr; gap: 40px; padding: 56px 20px; }
   .brands-who__lead { font-size: 16px; }
-  .brands-who__points { grid-template-columns: 1fr; gap: 32px; margin: 40px 0 36px; }
+  .brands-who__link { margin-top: 24px; }
+  .brands-who__points li { grid-template-columns: 44px 1fr; padding: 24px 0; }
+  .brands-who__num { font-size: 18px; }
   .brand-feature { position: relative; height: calc(var(--mh) * var(--u)); padding: 0; background: linear-gradient(var(--panel, var(--white)) calc(var(--mwhite) * var(--u)), var(--page) 0); }
   .brand-feature__card { display: block; height: auto; background: none; }
   .brand-feature__img { position: absolute; left: calc(169 * var(--u)); top: calc(var(--mimg-top) * var(--u)); width: calc(var(--mimg-w) * var(--u)); height: calc(var(--mimg-h) * var(--u)); }
