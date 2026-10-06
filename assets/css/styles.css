@@ -278,7 +278,7 @@ p { text-wrap: pretty; }
 .careers-card__text p { margin-top: 1.25rem; font-size: clamp(1.0625rem, .4vw + .8rem, 1.25rem); line-height: 1.55; }
 .careers-card .nh-pill { margin-top: 2rem; }
 .careers-card__img { overflow: hidden; background: var(--grey-100); }
-.careers-card__img img { object-position: 75% 50%; }   /* the video call: keep the laptop screen in view */
+.careers-card__img img { object-position: 50% 50%; }
 .careers-card--people .careers-card__img img { object-position: 50% 40%; }
 
 /* ---- hover: only on devices that really hover, so taps never leave a stuck hover state -------- */
