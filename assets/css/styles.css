@@ -268,7 +268,7 @@ p { text-wrap: pretty; }
 /* ---- careers ----------------------------------------------------------- */
 /* photo band, mission band, two white cards with a photo on the right */
 .careers-hero { width: 100%; aspect-ratio: 3 / 1; min-height: 18.75rem; max-height: 70svh; overflow: hidden; background: var(--ink); }
-.careers-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.careers-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }   /* faces sit high in the photo */
 
 .careers-cards { display: flex; flex-direction: column; gap: clamp(1.5rem, 4vw, 3.5rem); padding: clamp(2rem, 5vw, 5rem) var(--edge); background: var(--strip); }
 .careers-card { display: grid; grid-template-columns: 7fr 5fr; min-height: clamp(26rem, 36vw, 37.5rem); background: var(--white); }
@@ -279,7 +279,7 @@ p { text-wrap: pretty; }
 .careers-card .nh-pill { margin-top: 2rem; }
 .careers-card__img { overflow: hidden; background: var(--grey-100); }
 .careers-card__img img { object-position: 50% 50%; }
-.careers-card--people .careers-card__img img { object-position: 60% 35%; }
+.careers-card--people .careers-card__img img { object-position: 50% 40%; }
 
 /* ---- hover: only on devices that really hover, so taps never leave a stuck hover state -------- */
 @media (hover: hover) {
