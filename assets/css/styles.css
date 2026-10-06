@@ -185,7 +185,7 @@ p { text-wrap: pretty; }
 .nh-careers__text > * { max-width: 34rem; }
 .nh-careers__lead { margin-top: 1.375rem; font-size: calc(var(--h2) * .8); line-height: 1.35; }
 .nh-careers .nh-pill { margin-top: 2.125rem; }
-.nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 50% 30%; }   /* height 0: the square photo fills the row without making it taller */
+.nh-careers .nh-careers__img { width: 100%; height: 0; min-height: 100%; object-fit: cover; object-position: 60% 80%; }   /* height 0: the photo fills the row without making it taller; the crop favours the group, not the ceiling */
 
 /* ---- about ------------------------------------------------------------- */
 /* hero: NOBL luggage left and flo activewear right, edge to edge; the cap keeps the mission on a laptop's
@@ -278,7 +278,7 @@ p { text-wrap: pretty; }
 .careers-card__text p { margin-top: 1.25rem; font-size: clamp(1.0625rem, .4vw + .8rem, 1.25rem); line-height: 1.55; }
 .careers-card .nh-pill { margin-top: 2rem; }
 .careers-card__img { overflow: hidden; background: var(--grey-100); }
-.careers-card__img img { object-position: 50% 50%; }
+.careers-card__img img { object-position: 75% 50%; }   /* the video call: keep the laptop screen in view */
 .careers-card--people .careers-card__img img { object-position: 50% 40%; }
 
 /* ---- hover: only on devices that really hover, so taps never leave a stuck hover state -------- */
