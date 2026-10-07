@@ -240,7 +240,7 @@ p { text-wrap: pretty; }
 .brand-feature .nh-pill { margin-top: 2rem; }
 .brand-feature--nobl { --panel: var(--nobl-tile); }
 .brand-feature--nobl .brand-feature__text { color: var(--white); }
-.brand-feature--flo { --panel: var(--flo-beige); }
+.brand-feature--flo { --panel: #d9cbbb; }   /* deeper sand: stands apart from the beige studio photo */
 .brand-feature--flo .brand-feature__card { grid-template-columns: 639fr 641fr; }
 .brand-feature--flo .brand-feature__img { order: 2; }
 
