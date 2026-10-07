@@ -1,6 +1,6 @@
 # nysonian.com
 
-The Nysonian Inc. website, home of [NOBL Travel](https://nobltravel.com) and [flo Pilates](https://pilatesflo.com). Plain HTML and CSS, with no framework and no build step.
+The Nysonian Inc. website, home of [NOBL Travel](https://nobltravel.com) and [flo Pilates](https://pilatesflo.com).
 
 **Live:** https://www.nysonian.com, hosted on Vercel.
 
@@ -20,7 +20,7 @@ All pages share `assets/css/styles.css` and `assets/js/menu.js`. Fonts and image
 npx live-server --port=5501
 ```
 
-Then open `http://127.0.0.1:5501`. There is nothing to build. The header and footer are repeated on every page, so a change to either needs making in all five files.
+Then open `http://127.0.0.1:5501`. The header and footer are repeated on every page, so a change to either needs making in all five files.
 
 ## Deployment
 
