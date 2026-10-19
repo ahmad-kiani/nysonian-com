@@ -262,9 +262,9 @@ p { text-wrap: pretty; }
    centred, so no one is left alone at the edge */
 .team { padding: var(--sec) var(--edge); text-align: center; }
 .team h1 { margin-top: 1.125rem; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
-.team__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem 1.5rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
-.member { display: flex; flex: 0 1 clamp(13rem, 23%, 18rem); flex-direction: column; align-items: center; }
-.member__photo { width: min(13.5rem, 100%); aspect-ratio: 1; border-radius: 50%; object-fit: cover; background: var(--grey-100); }
+.team__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem 2rem; max-width: 64rem; margin: clamp(2.5rem, 5vw, 4rem) auto 0; }   /* three per row from tablet up */
+.member { display: flex; flex: 0 1 calc((100% - 4rem) / 3); flex-direction: column; align-items: center; }
+.member__photo { width: min(15rem, 100%); aspect-ratio: 1; border-radius: 50%; object-fit: cover; background: var(--grey-100); }
 .member__name { margin-top: 1.5rem; font-size: 1.125rem; font-weight: 700; color: var(--ink); }
 .member__linkedin { order: 1; display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; margin-top: .25rem; }
 .member__linkedin img { width: 2rem; height: 2rem; filter: brightness(.6); }   /* the grey icon, darkened to 3:1 on the page */
