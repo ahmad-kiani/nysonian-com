@@ -262,8 +262,9 @@ p { text-wrap: pretty; }
    centred, so no one is left alone at the edge */
 .team { padding: var(--sec) var(--edge); text-align: center; }
 .team h1 { margin-top: 1.125rem; font-size: var(--h2); font-weight: 400; line-height: 1.2; }
-.team__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3.5rem 2rem; max-width: 64rem; margin: clamp(2.5rem, 5vw, 4rem) auto 0; }   /* three per row from tablet up */
-.member { display: flex; flex: 0 1 calc((100% - 4rem) / 3); flex-direction: column; align-items: center; }
+.team__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3.5rem 2rem; max-width: 64rem; margin: clamp(2.5rem, 5vw, 4rem) auto 0; }   /* three per row from tablet up */
+.member { display: flex; grid-column: span 2; flex-direction: column; align-items: center; }
+.member:last-child:nth-child(3n + 1) { grid-column: 3 / span 2; }   /* a lone last card sits in the middle */
 .member__photo { width: min(15rem, 100%); aspect-ratio: 1; border-radius: 50%; object-fit: cover; background: var(--grey-100); }
 .member__name { margin-top: 1.5rem; font-size: 1.125rem; font-weight: 700; color: var(--ink); }
 .member__linkedin { order: 1; display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; margin-top: .25rem; }
@@ -502,8 +503,8 @@ p { text-wrap: pretty; }
   .about-hero__nobl { object-position: 50% 40%; }
   .about-cta { grid-template-columns: 1fr; }
   /* team: two people per row with smaller photos, so the page is not one long column */
-  .team__grid { gap: 2.5rem 1rem; }
-  .member { flex: 0 1 calc(50% - .5rem); }
+  .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1rem; }
+  .member, .member:last-child:nth-child(3n + 1) { grid-column: auto; }
   .member__photo { width: min(8.5rem, 100%); }
   .member__name { margin-top: 1rem; font-size: 1rem; }
   .member__title { font-size: .875rem; }
